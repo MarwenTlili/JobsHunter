@@ -3,11 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Company;
-use App\Entity\Country;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -34,9 +31,7 @@ class CompanyCrudController extends AbstractCrudController
             TextEditorField::new('description'),
             TextField::new('trn'),
             AssociationField::new('user'),
-            AssociationField::new('activity'),
-
-            
+            AssociationField::new('activity'),         
         ];
     }
 }
