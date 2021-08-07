@@ -1,0 +1,22 @@
+<ul>
+    <li><a href="{{path('app_homepage')}}">Home</a></li>
+    <li><a href="{{path('job_index')}}">Offres d'emploi</a></li>
+    <li><a href="{{path('training_index')}}">Formations</a></li>
+    <li><a href="{{path('company_index')}}">Entreprises</a></li>
+    <li><a href="{{path('contact')}}">Contact</a></li>
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ path('admin') }}">Dashboard</a></li>
+    {% endif %}
+
+    {% if not app.user %}
+        <li><a href="{{path('app_login')}}">Login</a></li>
+    {% endif %}
+    
+    {% if app.user %}
+        <div class="mb-3">
+            {{ app.user.username }}
+        </div>
+        <li><a href="{{ path('app_logout') }}">Logout</a></li>
+    {% endif %}
+    
+</ul>

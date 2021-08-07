@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Job{% endblock %}
+
+{% block body %}
+    {% include "menu.html.twig" %}
+
+    <h1>Job</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ job.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ job.title }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ job.address }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ job.createdAt ? job.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ExpireAt</th>
+                <td>{{ job.expireAt ? job.expireAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PostsNumber</th>
+                <td>{{ job.postsNumber }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ job.type }}</td>
+            </tr>
+            <tr>
+                <th>ExperienceMin</th>
+                <td>{{ job.experienceMin }}</td>
+            </tr>
+            <tr>
+                <th>ExperienceMax</th>
+                <td>{{ job.experienceMax }}</td>
+            </tr>
+            <tr>
+                <th>EducationLevel</th>
+                <td>{{ job.educationLevel }}</td>
+            </tr>
+            <tr>
+                <th>RequiredLanguages</th>
+                <td>{{ job.requiredLanguages }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ job.description }}</td>
+            </tr>
+            <tr>
+                <th>Requirements</th>
+                <td>{{ job.requirements }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('job_index') }}">back to list</a>
+
+    <a href="{{ path('job_edit', {'id': job.id}) }}">edit</a>
+
+    {{ include('job/_delete_form.html.twig') }}
+{% endblock %}

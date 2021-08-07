@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Company index{% endblock %}
+
+{% block body %}
+    {% include "menu.html.twig" %}
+
+    <h1>Company index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Name</th>
+                <th>Region</th>
+                <th>FullAddress</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Description</th>
+                <th>Trn</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td>{{ company.id }}</td>
+                <td>{{ company.firstName }}</td>
+                <td>{{ company.lastName }}</td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.region }}</td>
+                <td>{{ company.fullAddress }}</td>
+                <td>{{ company.phone }}</td>
+                <td>{{ company.website }}</td>
+                <td>{{ company.description }}</td>
+                <td>{{ company.trn }}</td>
+                <td>
+                    <a href="{{ path('company_show', {'id': company.id}) }}">show</a>
+                    <a href="{{ path('company_edit', {'id': company.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('company_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Training index{% endblock %}
+
+{% block body %}
+    {% include "menu.html.twig" %}
+
+    <h1>Training index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Region</th>
+                <th>FullAddress</th>
+                <th>CreatedAt</th>
+                <th>Description</th>
+                <th>About</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for training in trainings %}
+            <tr>
+                <td>{{ training.id }}</td>
+                <td>{{ training.title }}</td>
+                <td>{{ training.region }}</td>
+                <td>{{ training.fullAddress }}</td>
+                <td>{{ training.createdAt ? training.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ training.description }}</td>
+                <td>{{ training.about }}</td>
+                <td>
+                    <a href="{{ path('training_show', {'id': training.id}) }}">show</a>
+                    <a href="{{ path('training_edit', {'id': training.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('training_new') }}">Create new</a>
+{% endblock %}

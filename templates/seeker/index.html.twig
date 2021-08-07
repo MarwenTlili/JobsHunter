@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seeker index{% endblock %}
+
+{% block body %}
+    {% include "menu.html.twig" %}
+
+    <h1>Seeker index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Civility</th>
+                <th>BirthDate</th>
+                <th>City</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for seeker in seekers %}
+            <tr>
+                <td>{{ seeker.id }}</td>
+                <td>{{ seeker.firstName }}</td>
+                <td>{{ seeker.lastName }}</td>
+                <td>{{ seeker.civility }}</td>
+                <td>{{ seeker.birthDate ? seeker.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ seeker.city }}</td>
+                <td>
+                    <a href="{{ path('seeker_show', {'id': seeker.id}) }}">show</a>
+                    <a href="{{ path('seeker_edit', {'id': seeker.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('seeker_new') }}">Create new</a>
+{% endblock %}
