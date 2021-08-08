@@ -4,6 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Training;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class TrainingCrudController extends AbstractCrudController
 {
@@ -12,14 +17,18 @@ class TrainingCrudController extends AbstractCrudController
         return Training::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('title'),
+            TextField::new('region'),
+            TextField::new('fullAddress'),
+            DateField::new('createdAt'),
+            AssociationField::new('country'),
+            AssociationField::new('company'),
             TextEditorField::new('description'),
+            TextEditorField::new('about'),
         ];
     }
-    */
 }
