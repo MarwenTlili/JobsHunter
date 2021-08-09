@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/job")
@@ -22,6 +23,9 @@ class JobController extends AbstractController
     public function index(JobRepository $jobRepository): Response
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $signUpPage = $this->generateUrl('job_index');
+        dump($signUpPage);
 
         return $this->render('job/index.html.twig', [
             'jobs' => $jobRepository->findAll(),
@@ -56,6 +60,11 @@ class JobController extends AbstractController
      */
     public function show(Job $job): Response
     {
+        $userProfilePage = $this->generateUrl('job_show', [
+            'id' => $job->getTitle(),
+        ]);
+        dump($userProfilePage);
+
         return $this->render('job/show.html.twig', [
             'job' => $job,
         ]);

@@ -117,6 +117,11 @@ class Job
      */
     private $tags;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->seekersSaved = new ArrayCollection();
@@ -404,5 +409,17 @@ class Job
 
     public function __toString(){
         return $this->getTitle();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
