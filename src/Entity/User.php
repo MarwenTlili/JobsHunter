@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -140,9 +141,12 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable();
 
         return $this;
     }

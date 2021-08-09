@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TrainingRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Training
 {
@@ -105,9 +106,12 @@ class Training
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+     /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable();
 
         return $this;
     }

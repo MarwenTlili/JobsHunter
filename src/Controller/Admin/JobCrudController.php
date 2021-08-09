@@ -24,7 +24,6 @@ class JobCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
             TextField::new('address'),
-            DateField::new('createdAt'),
             DateField::new('expireAt'),
             NumberField::new('postsNumber'),
             TextField::new('type'),

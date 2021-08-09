@@ -24,7 +24,6 @@ class TrainingCrudController extends AbstractCrudController
             TextField::new('title'),
             TextField::new('region'),
             TextField::new('fullAddress'),
-            DateField::new('createdAt'),
             AssociationField::new('country'),
             AssociationField::new('company'),
             TextEditorField::new('description'),
