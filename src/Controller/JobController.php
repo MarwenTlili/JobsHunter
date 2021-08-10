@@ -24,9 +24,6 @@ class JobController extends AbstractController
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $signUpPage = $this->generateUrl('job_index');
-        dump($signUpPage);
-
         return $this->render('job/index.html.twig', [
             'jobs' => $jobRepository->findAll(),
         ]);
@@ -56,14 +53,16 @@ class JobController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="job_show", methods={"GET"})
+     * @Route("/{slug}", name="job_show", methods={"GET"})
      */
     public function show(Job $job): Response
     {
-        $userProfilePage = $this->generateUrl('job_show', [
-            'id' => $job->getTitle(),
-        ]);
-        dump($userProfilePage);
+        // $jobProfilePage = $this->generateUrl('job_show', [
+        //     'title' => $job->getTitle(),
+        // ]);
+        // dump($jobProfilePage);
+
+        // return $this->redirectToRoute('job_show',['slug'=> $jobProfilePage, 'job'=>$job]);
 
         return $this->render('job/show.html.twig', [
             'job' => $job,
@@ -71,7 +70,7 @@ class JobController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="job_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="job_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Job $job): Response
     {
@@ -91,7 +90,7 @@ class JobController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="job_delete", methods={"POST"})
+     * @Route("/{slug}", name="job_delete", methods={"POST"})
      */
     public function delete(Request $request, Job $job): Response
     {

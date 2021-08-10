@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Company
 {
@@ -91,6 +93,11 @@ class Company
      * @ORM\OneToMany(targetEntity=Training::class, mappedBy="company")
      */
     private $trainings;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -309,5 +316,20 @@ class Company
 
     public function __toString(){
         return $this->getName().'';
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setSlug(): self{
+        $slugify = new Slugify();
+        $this->slug = $slugify->slugify($this->getName());
+        return $this;
     }
 }

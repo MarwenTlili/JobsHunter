@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TrainingRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +60,11 @@ class Training
      * @ORM\JoinColumn(nullable=false)
      */
     private $company;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function getId(): ?int
     {
@@ -166,5 +172,20 @@ class Training
 
     public function __toString(){
         return $this->getTitle();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setSlug(): self{
+        $slugify = new Slugify();
+        $this->slug = $slugify->slugify($this->getTitle());
+        return $this;
     }
 }

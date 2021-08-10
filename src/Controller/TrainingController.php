@@ -49,7 +49,7 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="training_show", methods={"GET"})
+     * @Route("/{slug}", name="training_show", methods={"GET"})
      */
     public function show(Training $training): Response
     {
@@ -59,7 +59,7 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="training_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="training_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Training $training): Response
     {
@@ -79,7 +79,7 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="training_delete", methods={"POST"})
+     * @Route("/{slug}", name="training_delete", methods={"POST"})
      */
     public function delete(Request $request, Training $training): Response
     {

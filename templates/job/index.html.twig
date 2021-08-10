@@ -16,10 +16,10 @@
             {{ job.address }}
             {{ job.description[:50] ~ '...'}}
             
-            <a href="{{ path('job_show', {'id': job.id}) }}">show</a>
+            <a href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
             
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('job_edit', {'id': job.id}) }}">edit</a>
+                <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
             {% endif %}
             
         </div><hr>

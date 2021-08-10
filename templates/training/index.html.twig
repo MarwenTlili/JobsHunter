@@ -31,8 +31,8 @@
                 <td>{{ training.description }}</td>
                 <td>{{ training.about }}</td>
                 <td>
-                    <a href="{{ path('training_show', {'id': training.id}) }}">show</a>
-                    <a href="{{ path('training_edit', {'id': training.id}) }}">edit</a>
+                    <a href="{{ path('training_show', {'slug': training.slug}) }}">show</a>
+                    <a href="{{ path('training_edit', {'slug': training.slug}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
