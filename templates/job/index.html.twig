@@ -7,6 +7,8 @@
 
     <h1>Job index</h1>
 
+    <div><h6>Il y a {{ jobs|length }} Offre.</h6></div>
+    <hr>
     {% for job in jobs %}
         <div class="job">
             <div>
@@ -15,13 +17,13 @@
             </div>
             {{ job.address }}
             {{ job.description[:50] ~ '...'}}
-            
+
             <a href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
-            
+
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
             {% endif %}
-            
+
         </div><hr>
     {% else %}
         <div>
@@ -29,5 +31,9 @@
         </div>
     {% endfor %}
 
-    <a href="{{ path('job_new') }}">Create new</a>
+    <div class="navigation">
+        {# {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/foundation_v5_pagination.html.twig') }} #}
+        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
+
 {% endblock %}
