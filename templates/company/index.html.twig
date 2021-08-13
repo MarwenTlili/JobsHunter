@@ -5,49 +5,36 @@
 {% block body %}
     {% include "menu.html.twig" %}
 
+     {{ form_start(form)}}
+        {{form_row(form.name)}}
+        <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>
+    {{ form_end(form) }}
+
     <h1>Company index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Name</th>
-                <th>Region</th>
-                <th>FullAddress</th>
-                <th>Phone</th>
-                <th>Website</th>
-                <th>Description</th>
-                <th>Trn</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for company in companies %}
-            <tr>
-                <td>{{ company.id }}</td>
-                <td>{{ company.firstName }}</td>
-                <td>{{ company.lastName }}</td>
-                <td>{{ company.name }}</td>
-                <td>{{ company.region }}</td>
-                <td>{{ company.fullAddress }}</td>
-                <td>{{ company.phone }}</td>
-                <td>{{ company.website }}</td>
-                <td>{{ company.description }}</td>
-                <td>{{ company.trn }}</td>
-                <td>
-                    <a href="{{ path('company_show', {'slug': company.slug}) }}">show</a>
-                    <a href="{{ path('company_edit', {'slug': company.slug}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <hr>
+    {% for company in companies %}
+        <div class="company">
+            <div>
+                {{ company.name }}
+            </div>
+            {{ company.description[:50] ~ '...'}}
 
-    <a href="{{ path('company_new') }}">Create new</a>
+            {# <a href="{{ path('company_show', {'slug': company.slug}) }}">show</a> #}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                {# <a href="{{ path('company_edit', {'slug': company.slug}) }}">edit</a> #}
+            {% endif %}
+
+        </div><hr>
+    {% else %}
+        <div>
+            <p>no records found</p>
+        </div>
+    {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(companies, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig')}}
+    </div>
+
 {% endblock %}

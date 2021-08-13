@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Training;
+use App\Form\SearchTrainingsType;
 use App\Form\TrainingType;
 use App\Repository\TrainingRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrainingController extends AbstractController
 {
     /**
-     * @Route("/", name="training_index", methods={"GET"})
+     * @Route("/", name="training_index", methods={"GET", "POST"})
      */
-    public function index(TrainingRepository $trainingRepository): Response
+    public function index(Request $request, TrainingRepository $trainingRepository, PaginatorInterface $paginator): Response
     {
+        $form = $this->createForm(SearchTrainingsType::class, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('job_index')
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $items = $trainingRepository->searchAllDESC($data);
+        }else{
+            $items = $trainingRepository->findAllDESC();
+        }
+        
+        $trainings = $paginator->paginate(
+            $items, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            TrainingRepository::PAGINATOR_PER_PAGE /*limit per page*/
+        );
+
         return $this->render('training/index.html.twig', [
-            'trainings' => $trainingRepository->findAll(),
+            'trainings' => $trainings,
+            'form' => $form->createView()
         ]);
     }
 

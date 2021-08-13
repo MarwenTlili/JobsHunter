@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Job;
 use App\Form\JobType;
+use App\Form\SearchJobsType;
 use App\Repository\JobRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,13 +18,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class JobController extends AbstractController
 {
     /**
-     * @Route("/", name="job_index", methods={"GET"})
+     * @Route("/", name="job_index", methods={"GET", "POST"})
      */
     public function index(Request $request, JobRepository $jobRepository, PaginatorInterface $paginator): Response
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $items = $jobRepository->findAllDESC();
 
+        
+        $form = $this->createForm(SearchJobsType::class, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('job_index')
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $items = $jobRepository->searchAllDESC($data);
+        }else{
+            $items = $jobRepository->findAllDESC();
+        }
+        
         $jobs = $paginator->paginate(
             $items, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
@@ -32,11 +46,10 @@ class JobController extends AbstractController
 
         return $this->render('job/index.html.twig', [
             'jobs' => $jobs,
+            'form' => $form->createView()
             
         ]);
     }
-
-    // ceil($page * $offset / $pages)
 
     /**
      * @Route("/new", name="job_new", methods={"GET","POST"})

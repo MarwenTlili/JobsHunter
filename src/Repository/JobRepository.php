@@ -24,7 +24,30 @@ class JobRepository extends ServiceEntityRepository
 
     public function findAllDESC()
     {
+
         return $this->findBy([], ['createdAt' => 'DESC']);
+    }
+
+    public function searchAllDESC(Array $data)
+    {
+        $qb = $this->createQueryBuilder('j')
+            ->where('j.title LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%')
+
+            ->orWhere('j.requirements LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%')
+
+            ->orWhere('j.description LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%')
+
+            ->andWhere('j.address LIKE :address')
+            ->setParameter('address', '%'.$data['address'].'%')
+
+            ->orderBy('j.createdAt', 'DESC');
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
     }
 
     // public function getJobPaginator(int $offset): Paginator

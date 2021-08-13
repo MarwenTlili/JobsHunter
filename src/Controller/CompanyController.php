@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Company;
 use App\Form\CompanyType;
+use App\Form\SearchCompaniesType;
 use App\Repository\CompanyRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyController extends AbstractController
 {
     /**
-     * @Route("/", name="company_index", methods={"GET"})
+     * @Route("/", name="company_index", methods={"GET", "POST"})
      */
-    public function index(CompanyRepository $companyRepository): Response
+    public function index(Request $request, CompanyRepository $companyRepository, PaginatorInterface $paginator): Response
     {
+        $form = $this->createForm(SearchCompaniesType::class, [
+            'method' => 'POST',
+            'action' => $this->generateUrl('job_index')
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $items = $companyRepository->searchAllDESC($data);
+        }else{
+            $items = $companyRepository->findAllDESC();
+        }
+        
+        $companies = $paginator->paginate(
+            $items, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            CompanyRepository::PAGINATOR_PER_PAGE /*limit per page*/
+        );
+
         return $this->render('company/index.html.twig', [
-            'companies' => $companyRepository->findAll(),
+            'companies' => $companies,
+            'form' => $form->createView()
         ]);
     }
 

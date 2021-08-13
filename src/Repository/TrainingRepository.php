@@ -14,9 +14,36 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TrainingRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 2;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Training::class);
+    }
+
+    public function findAllDESC()
+    {
+
+        return $this->findBy([], ['createdAt' => 'DESC']);
+    }
+
+    public function searchAllDESC(Array $data)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.title LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%')
+
+            ->orWhere('t.description LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%')
+
+            ->andWhere('t.fullAddress LIKE :address')
+            ->setParameter('address', '%'.$data['address'].'%')
+
+            ->orderBy('t.createdAt', 'DESC');
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
     }
 
     // /**

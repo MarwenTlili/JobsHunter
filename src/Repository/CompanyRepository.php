@@ -14,13 +14,33 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CompanyRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 2;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Company::class);
     }
 
+    public function findAllDESC()
+    {
+
+        return $this->findBy([], ['name' => 'ASC']);
+    }
+
+    public function searchAllDESC(Array $data)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.name LIKE :name')
+            ->setParameter('name', '%'.$data['name'].'%')
+            ->orderBy('c.name', 'ASC');
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
     // /**
-    //  * @return Company[] Returns an array of Company objects
+    //  * @return Company[] Returns an array of Company obcects
     //  */
     /*
     public function findByExampleField($value)
