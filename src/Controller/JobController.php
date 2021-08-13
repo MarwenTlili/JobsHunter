@@ -22,7 +22,6 @@ class JobController extends AbstractController
     public function index(Request $request, JobRepository $jobRepository, PaginatorInterface $paginator): Response
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $offset = max(0, $request->query->getInt('offset', 0));     // 0 2 4
         $items = $jobRepository->findAllDESC();
 
         $jobs = $paginator->paginate(

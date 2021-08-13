@@ -5,8 +5,14 @@
 {% block body %}
     {% include "menu.html.twig" %}
 
-    <h1>Job index</h1>
+     <form class="d-flex">
+        <input id="job-title" class="form-control me-2" type="search" placeholder="Titlre" aria-label="Search">
+        <input id="job-location" class="form-control me-2" type="search" placeholder="Emplacement" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
+    <h1>Job index</h1>
+   
     <div><h6>Il y a {{ jobs|length }} Offre.</h6></div>
     <hr>
     {% for job in jobs %}
@@ -33,7 +39,7 @@
 
     <div class="navigation">
         {# {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/foundation_v5_pagination.html.twig') }} #}
-        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'}}
     </div>
 
 {% endblock %}

@@ -27,18 +27,18 @@ class JobRepository extends ServiceEntityRepository
         return $this->findBy([], ['createdAt' => 'DESC']);
     }
 
-    public function getJobPaginator(int $offset): Paginator
-    {
-        $query = $this->createQueryBuilder('j')
-        // ->andWhere('j.id = :id')
-        // ->setparameter('id', $job->getId())
-        ->orderBy('j.createdAt', 'DESC')
-        ->setMaxResults(self::PAGINATOR_PER_PAGE)
-        ->setFirstResult($offset)
-        ->getQuery();
+    // public function getJobPaginator(int $offset): Paginator
+    // {
+    //     $query = $this->createQueryBuilder('j')
+    //     // ->andWhere('j.id = :id')
+    //     // ->setparameter('id', $job->getId())
+    //     ->orderBy('j.createdAt', 'DESC')
+    //     ->setMaxResults(self::PAGINATOR_PER_PAGE)
+    //     ->setFirstResult($offset)
+    //     ->getQuery();
 
-        return new Paginator($query);
-    }
+    //     return new Paginator($query);
+    // }
 
     // /**
     //  * @return Job[] Returns an array of Job objects
