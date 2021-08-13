@@ -5,7 +5,7 @@
 {% block body %}
     {% include "menu.html.twig" %}
 
-     <form class="d-flex">
+     <form name="filter" class="d-flex">
         <input id="job-title" class="form-control me-2" type="search" placeholder="Titlre" aria-label="Search">
         <input id="job-location" class="form-control me-2" type="search" placeholder="Emplacement" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -39,7 +39,7 @@
 
     <div class="navigation">
         {# {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/foundation_v5_pagination.html.twig') }} #}
-        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'}}
+        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig')}}
     </div>
 
 {% endblock %}
