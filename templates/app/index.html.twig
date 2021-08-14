@@ -4,9 +4,41 @@
 
 {% block body %}
     {% include "menu.html.twig" %}
-    <hr>
     <h3>Dérniere offres d'emploi</h3>
+    {% for job in lastJobs %}
+        <div class="job">
+            <div>
+                {{ job.title }}
+                {{ job.createdAt ? job.createdAt|date('Y-m-d') : '' }}
+            </div>
+            {{ job.address }}
+            {{ job.description[:50] ~ '...'}}
+
+            <a href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
+            {% endif %}
+
+        </div><hr>
+    {% endfor %}
 
     <h3>Dérniere formations</h3>
-    
+    {% for training in lastTrainings %}
+        <div class="training">
+            <div>
+                {{ training.title }}
+                {{ training.createdAt ? training.createdAt|date('Y-m-d') : '' }}
+            </div>
+            {{ training.address }}
+            {{ training.description[:50] ~ '...'}}
+
+            {# <a href="{{ path('training_show', {'slug': training.slug}) }}">show</a> #}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                {# <a href="{{ path('training_edit', {'slug': training.slug}) }}">edit</a> #}
+            {% endif %}
+
+        </div><hr>
+    {% endfor %}
 {% endblock %}
