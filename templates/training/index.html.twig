@@ -21,7 +21,7 @@
                 {{ training.title }}
                 {{ training.createdAt ? training.createdAt|date('Y-m-d') : '' }}
             </div>
-            {{ training.fullAddress }}
+            {{ training.address }}
             {{ training.description[:50] ~ '...'}}
 
             {# <a href="{{ path('training_show', {'slug': training.slug}) }}">show</a> #}

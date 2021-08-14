@@ -36,7 +36,7 @@ class TrainingRepository extends ServiceEntityRepository
             ->orWhere('t.description LIKE :keyword')
             ->setParameter('keyword', '%'.$data['keyword'].'%')
 
-            ->andWhere('t.fullAddress LIKE :address')
+            ->andWhere('t.address LIKE :address')
             ->setParameter('address', '%'.$data['address'].'%')
 
             ->orderBy('t.createdAt', 'DESC');

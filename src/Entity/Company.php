@@ -22,12 +22,12 @@ class Company
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName;
 
@@ -37,17 +37,12 @@ class Company
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $region;
+    private $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $fullAddress;
-
-    /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $phone;
 
@@ -146,14 +141,14 @@ class Company
         return $this;
     }
 
-    public function getFullAddress(): ?string
+    public function getAddress(): ?string
     {
-        return $this->fullAddress;
+        return $this->address;
     }
 
-    public function setFullAddress(string $fullAddress): self
+    public function setAddress(string $address): self
     {
-        $this->fullAddress = $fullAddress;
+        $this->address = $address;
 
         return $this;
     }
@@ -256,18 +251,6 @@ class Company
                 $job->setCompany(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(string $region): self
-    {
-        $this->region = $region;
 
         return $this;
     }

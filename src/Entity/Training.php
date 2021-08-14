@@ -27,12 +27,7 @@ class Training
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $region;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $fullAddress;
+    private $address;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -45,7 +40,7 @@ class Training
     private $description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $about;
 
@@ -83,26 +78,14 @@ class Training
         return $this;
     }
 
-    public function getRegion(): ?string
+    public function getAddress(): ?string
     {
-        return $this->region;
+        return $this->address;
     }
 
-    public function setRegion(string $region): self
+    public function setAddress(string $address): self
     {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    public function getFullAddress(): ?string
-    {
-        return $this->fullAddress;
-    }
-
-    public function setFullAddress(string $fullAddress): self
-    {
-        $this->fullAddress = $fullAddress;
+        $this->address = $address;
 
         return $this;
     }

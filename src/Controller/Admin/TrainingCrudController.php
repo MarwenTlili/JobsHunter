@@ -22,8 +22,7 @@ class TrainingCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
-            TextField::new('region'),
-            TextField::new('fullAddress'),
+            TextField::new('address'),
             AssociationField::new('country'),
             AssociationField::new('company'),
             TextEditorField::new('description'),
