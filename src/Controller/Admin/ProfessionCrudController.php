@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Activity;
+use App\Entity\Profession;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class ActivityCrudController extends AbstractCrudController
+class ProfessionCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Activity::class;
+        return Profession::class;
     }
 
     /*

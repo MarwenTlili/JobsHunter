@@ -30,7 +30,7 @@ class CompanyCrudController extends AbstractCrudController
             TextEditorField::new('description'),
             TextField::new('trn'),
             AssociationField::new('user'),
-            AssociationField::new('activity'),         
+            AssociationField::new('professions'),         
         ];
     }
 }

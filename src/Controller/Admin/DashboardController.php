@@ -2,10 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Activity;
 use App\Entity\Company;
 use App\Entity\Country;
 use App\Entity\Job;
+use App\Entity\Profession;
 use App\Entity\Seeker;
 use App\Entity\Tag;
 use App\Entity\Training;
@@ -55,7 +55,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Seekers', 'fa fa-id-badge', Seeker::class);
         yield MenuItem::linkToCrud('Trainings', 'fa fa-certificate', Training::class);
         yield MenuItem::linkToCrud('Jobs', 'fa fa-user-tie', Job::class);
-        yield MenuItem::linkToCrud('Activities', 'fa fa-clipboard', Activity::class);
+        yield MenuItem::linkToCrud('Professions', 'fa fa-clipboard', Profession::class);
 
     }
 }

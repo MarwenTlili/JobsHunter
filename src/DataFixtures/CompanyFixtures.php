@@ -15,13 +15,13 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         $insodev->setFirstName("nom1")
         ->setLastName("prenom1")
         ->setName("Insodev")
-        ->setRegion("Sousse")
-        ->setFullAddress("Sousse, Tunisie")
+        ->setAddress("Sousse")
+        ->setAddress("Sousse, Tunisie")
         ->setPhone("XX XXX XXX")
         ->setWebsite("www.insodev.com")
         ->setDescription("...")
         ->setTrn("O4/FKSJ/G4DSF/45")
-        ->setActivity($this->getReference(ActivityFixtures::DEVWEB_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::INSODEV_EMP));
 
@@ -29,13 +29,13 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         $satoripop->setFirstName("nom2")
         ->setLastName("prenom2")
         ->setName("Satoripop")
-        ->setRegion("Sousse")
-        ->setFullAddress("Sousse, Tunisie")
+        ->setAddress("Sousse")
+        ->setAddress("Sousse, Tunisie")
         ->setPhone("XX XXX XXX")
         ->setWebsite("www.satoripop.com")
         ->setDescription("...")
         ->setTrn("D2/GRSZR3/5F2254/99")
-        ->setActivity($this->getReference(ActivityFixtures::DEVWEB_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::PROXYM_EMP));
 
@@ -43,13 +43,13 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         $smooth_algo->setFirstName("nom3")
         ->setLastName("prenom3")
         ->setName("Smooth Algo")
-        ->setRegion("Sousse")
-        ->setFullAddress("Sousse, Sfax")
+        ->setAddress("Sousse")
+        ->setAddress("Sousse, Sfax")
         ->setPhone("XX XXX XXX")
         ->setWebsite("www.satoripop.com")
         ->setDescription("...")
         ->setTrn("D2/GRSZR3/5F2254/99")
-        ->setActivity($this->getReference(ActivityFixtures::DEVWEB_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::PROXYM_EMP));
 
@@ -65,7 +65,7 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         return [
             UserFixtures::class,
             CountryFixtures::class,
-            ActivityFixtures::class
+            ProfessionFixtures::class
         ];
     }
 }
