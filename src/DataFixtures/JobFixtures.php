@@ -6,104 +6,252 @@ use App\Entity\Job;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
+use DateTimeImmutable;
 
 class JobFixtures extends Fixture implements DependentFixtureInterface{
+    protected $faker;
+
+    public const JOB1 = "JOB1";
+    public const JOB2 = "JOB2";
+    public const JOB3 = "JOB3";
+    public const JOB4 = "JOB4";
+    public const JOB5 = "JOB5";
+    public const JOB6 = "JOB6";
+    public const JOB7 = "JOB7";
+    public const JOB8 = "JOB8";
+    public const JOB9 = "JOB9";
+    public const JOB10 = "JOB110";
+
     public function load(ObjectManager $manager){
-        $symfony1 = new Job();
-        $symfony1->setTitle("dev symfony")
-        ->setAddress("sousse, 2315")
-        ->setCreatedAt(new \DateTimeImmutable())
-        ->setExpireAt(new \DateTimeImmutable())
-        ->setPostsNumber(3)
-        ->setType("CDI")
-        ->setExperienceMin(0)
-        ->setExperienceMax(3)
+        $this->faker = Factory::create();
+
+        $job_types = ['CDD', 'CDI', 'SIVP', 'KARAMA'];
+
+        $job1 = new Job();
+        $job1->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
         ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
-        ->setSalaryMin(1000)
-        ->setSalayMax(1500)
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
         ->setRequiredLanguages("Français, anglais")
-        ->setDescription("
-            Votre mission si vous l’acceptez :
-            Développement du backend / bases de données
-            Mise en production des nouvelles versions des applications et bases de données
-            Traitement des demandes de services (WebServices)
-            Maintenance en condition opérationnelle (MCO) des environnements
-            Résolution d’incidents / problèmes
-            Métrologie, analyse de performances, optimisations
-            Veille tehnologique
-        ")
-        ->setRequirements("
-            Compétences  techniques :
-            Vous avez une première expérience significative à un poste similaire
-            Les environnements Symfony 2/ Laravel / Doctrine / PHP 7 / API Rest Webservice / JSON / API Google maps n’ont aucun secret pour vous
-            Vous maîtrisez à la perfection : NodeJs / AngularJs / Socket / Stripe / Google maps API / Amazon Web Services
-            L’environnement startup ne vous fait pas peur 
-            Evidemment vous avez un côté geek et le souci du détail 
-            Vous savez vous adapter et être flexible
-            Vous êtes autonome tout en ayant l’esprit d’équipe
-            Aptitudes relationnelles et comportementales 
-            Rigueur, autonomie, compétences rédactionnelles
-            Capacité à travailler en équipe
-            Travail en équipe et en transverse
-            Curiosité, ambition, dynamisme & goût pour les challenges
-            Autonomie et travail en équipe
-        ")
-        ->setCompany($this->getReference(CompanyFixtures::INSODEV_REF))
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
         ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
 
-        $jee1 = new Job();
-        $jee1->setTitle("dev JEE")
-        ->setAddress("sousse, 4032")
-        ->setCreatedAt(new \DateTimeImmutable())
-        ->setExpireAt(new \DateTimeImmutable())
-        ->setPostsNumber(3)
-        ->setType("CDI")
-        ->setExperienceMin(0)
-        ->setExperienceMax(1)
-        ->setEducationLevel("Ingénieur")
-        ->setSalaryMin(1500)
-        ->setSalayMax(2000)
+        $job2 = new Job();
+        $job2->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
         ->setRequiredLanguages("Français, anglais")
-        ->setDescription("
-            Satoripop est une entreprise de services numériques basée à Sousse depuis 2014, qui intervient dans tout le cycle de vie d’un projet IT. Forte de ses 6 départements (UX/UI, Web, Mobile, Web marketing, Cloud et R&D) et de ses 120 collaborateurs, Satoripop a su attirer une multitude de clients et partenaires basés principalement en Europe et Afrique et comprenant
-            - Des startups
-            - Des grands comptes
-            - Des associations et organisations non gouvernementales
-            - Des gouvernements 
-            Dans le cadre de développement de ses activités et renforcement de ses équipes, nous cherchons à recruter un Développeur JAVA
-        ")
-        ->setRequirements("
-            Activités principales
-
-            Rédiger des spécifications techniques et fonctionnelles
-            Concevoir et modéliser
-            Développement
-            Participer aux phases d'intégration
-            Intervenir sur les phases de tests
-            Assurer la maintenance et les évolutions correctives
-            EXIGENCES DE L'EMPLOI
-            
-            De formation ingénieur ou technicien en informatique/Telecom, vous avez au minimum 3 ans d'expérience dans un domaine équivalent
-            
-            Compétences métiers / techniques
-            
-            Maîtrise d'une ou plusieurs de ces technologies : JAVA, HIBERNATE, MAVEN, STRUTS, JQuery, Javascript, XML, MySQL, Tomcat. La maîtrise des technologies : REST, SOAP seraient un plus
-            Aptitudes relationnelles et comportementales 
-            
-            Rigueur, autonomie,
-            Capacité à travailler en équipe
-        ")
-        ->setCompany($this->getReference(CompanyFixtures::SATORIPOP_REF))
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY2))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
-        ->addTag($this->getReference(TagFixtures::JAVA_REF))
-        ->addTag($this->getReference(TagFixtures::JEE_REF));
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
 
-        $manager->persist($symfony1);
-        $manager->persist($jee1);
+        $job3 = new Job();
+        $job3->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY3))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job4 = new Job();
+        $job4->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY4))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job5 = new Job();
+        $job5->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job6 = new Job();
+        $job6->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY3))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job7 = new Job();
+        $job7->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job8 = new Job();
+        $job8->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job9 = new Job();
+        $job9->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY2))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $job10 = new Job();
+        $job10->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
+        ->setAddress($this->faker->address)
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setExpireAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)))
+        ->setPostsNumber($this->faker->numberBetween($min = 1, $max = 5))
+        ->setType($job_types[array_rand($job_types)])
+        ->setExperienceMin($this->faker->numberBetween($min = 0, $max = 3))
+        ->setExperienceMax($this->faker->numberBetween($min = 3, $max = 10))
+        ->setEducationLevel("DESS, DEA, Master, Bac + 5, Grandes Ecoles")
+        ->setSalaryMin($this->faker->numberBetween($min = 1000, $max = 1500))
+        ->setSalayMax($this->faker->numberBetween($min = 1500, $max = 3500))
+        ->setRequiredLanguages("Français, anglais")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setRequirements($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setCompany($this->getReference(CompanyFixtures::COMPANY4))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->addTag($this->getReference(TagFixtures::PHP_REF))
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+
+        $manager->persist($job1);
+        $manager->persist($job2);
+        $manager->persist($job3);
+        $manager->persist($job4);
+        $manager->persist($job5);
+        $manager->persist($job6);
+        $manager->persist($job7);
+        $manager->persist($job8);
+        $manager->persist($job9);
+        $manager->persist($job10);
 
         $manager->flush();
+
+        $this->addReference(self::JOB1, $job1);
+        $this->addReference(self::JOB2, $job2);
+        $this->addReference(self::JOB3, $job3);
+        $this->addReference(self::JOB4, $job4);
+        $this->addReference(self::JOB5, $job5);
+        $this->addReference(self::JOB6, $job6);
+        $this->addReference(self::JOB7, $job7);
+        $this->addReference(self::JOB8, $job8);
+        $this->addReference(self::JOB9, $job9);
+        $this->addReference(self::JOB10, $job10);
+
     }
 
     public function getDependencies(){
