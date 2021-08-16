@@ -141,12 +141,12 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAt(): self
+    // /**
+    //  * @ORM\PrePersist
+    //  */
+    public function setCreatedAt($date): self
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = $date;
 
         return $this;
     }

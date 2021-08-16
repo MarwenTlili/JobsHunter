@@ -42,7 +42,7 @@ class Seeker
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $city;
+    private $address;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="Seeker", cascade={"persist", "remove"})
@@ -127,14 +127,14 @@ class Seeker
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getAddress(): ?string
     {
-        return $this->city;
+        return $this->address;
     }
 
-    public function setCity(string $city): self
+    public function setAddress(string $address): self
     {
-        $this->city = $city;
+        $this->address = $address;
 
         return $this;
     }

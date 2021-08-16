@@ -5,82 +5,190 @@ use App\Entity\Company;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class CompanyFixtures extends Fixture implements DependentFixtureInterface{
-    public const INSODEV_REF = "insodev-ref";
-    public const SATORIPOP_REF = "satoripop-ref";
-    public const CIFOP_IMS = "cifop-ims";
+    protected $faker;
+
+    public const COMPANY1 = "company1";
+    public const COMPANY2 = "company2";
+    public const COMPANY3 = "company3";
+    public const COMPANY4 = "company4";
+    public const COMPANY5 = "company5";
+    public const TRAINING_COMPANY1 = "TRAINING_COMPANY1";
+    public const TRAINING_COMPANY2 = "TRAINING_COMPANY2";
+    public const TRAINING_COMPANY3 = "TRAINING_COMPANY3";
+    public const TRAINING_COMPANY4 = "TRAINING_COMPANY4";
+    public const TRAINING_COMPANY5 = "TRAINING_COMPANY5";
+
+
 
     public function load(ObjectManager $manager){
-        $insodev = new Company();
-        $insodev->setFirstName("nom1")
-        ->setLastName("prenom1")
-        ->setName("Insodev")
-        ->setAddress("Sousse, Tunisie")
-        ->setPhone("XX XXX XXX")
-        ->setWebsite("www.insodev.com")
-        ->setDescription("...")
-        ->setTrn("O4/FKSJ/G4DSF/45")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
-        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
-        ->setUser($this->getReference(UserFixtures::INSODEV_COMP));
+        $this->faker = Factory::create();
 
-        $satoripop = new Company();
-        $satoripop->setFirstName("nom2")
-        ->setLastName("prenom2")
-        ->setName("Satoripop")
-        ->setAddress("Sousse, Tunisie")
-        ->setPhone("XX XXX XXX")
-        ->setWebsite("www.satoripop.com")
-        ->setDescription("...")
-        ->setTrn("D2/GRSZR3/5F2254/99")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
-        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
-        ->setUser($this->getReference(UserFixtures::PROXYM_COMP));
-
-        $smooth_algo = new Company();
-        $smooth_algo->setFirstName("nom3")
-        ->setLastName("prenom3")
-        ->setName("Smooth Algo")
-        ->setAddress("Sousse, Sfax")
-        ->setPhone("XX XXX XXX")
-        ->setWebsite("www.satoripop.com")
-        ->setDescription("...")
-        ->setTrn("D2/GRSZR3/5F2254/99")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
-        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
-        ->setUser($this->getReference(UserFixtures::PROXYM_COMP));
-
-        $cifop_ims = new Company();
-        $cifop_ims->setFirstName("nom4")
-        ->setLastName("prenom4")
-        ->setName("CIFOP-IMS")
-        ->setAddress("04 Rue Elgazez IMM «Jasmin1» 2ème étage App N°5 Menzah1-1004 Tunis")
-        ->setPhone("XX XXX XXX")
-        ->setWebsite("www.cifop-ims.com")
-        ->setDescription("
-            CIFOP-IMS est une société d'ingénierie informatique et de formation professionnelle 
-            qui propose une offre complète de formations adaptées aux besoins des particuliers et des entreprises : 
-            Multimédia, Internet, Web, Management, Comptabilité, Langues, Ressources Humaines, 
-            Développement personnel. CIFOP-IMS propose également des formations et des stages pratiques en \"INTRA\"
-                sur le lieu de travail.
-
-        ")
+        ////////////////////////////////////////////////////////////////////////////////
+        // Companies
+        $company1 = new Company();
+        $company1->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER1_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER1_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
         ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
-        ->setUser($this->getReference(UserFixtures::CIFOPIMS_COMP));
+        ->setUser($this->getReference(UserFixtures::USER1_COMPANY));
 
-        $manager->persist($insodev);
-        $manager->persist($satoripop);
-        $manager->persist($cifop_ims);
+        $company2 = new Company();
+        $company2->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER2_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER2_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER2_COMPANY));
+
+        $company3 = new Company();
+        $company3->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER3_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER3_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER3_COMPANY));
+
+        $company4 = new Company();
+        $company4->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER4_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER4_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER4_COMPANY));
+
+        $company5 = new Company();
+        $company5->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER5_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER5_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER5_COMPANY));
+        ////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // Training Companies
+        $training_company1 = new Company();
+        $training_company1->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER1_TRAINING_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER1_TRAINING_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER1_TRAINING_COMPANY));
+
+        $training_company2 = new Company();
+        $training_company2->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER2_TRAINING_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER2_TRAINING_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER2_TRAINING_COMPANY));
+
+        $training_company3 = new Company();
+        $training_company3->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER3_TRAINING_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER3_TRAINING_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER3_TRAINING_COMPANY));
+
+        $training_company4 = new Company();
+        $training_company4->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER4_TRAINING_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER4_TRAINING_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER4_TRAINING_COMPANY));
+
+        $training_company5 = new Company();
+        $training_company5->setFirstName($this->faker->firstName())
+        ->setLastName($this->faker->lastName)
+        ->setName($this->getReference(UserFixtures::USER5_TRAINING_COMPANY)->getUsername())
+        ->setAddress($this->faker->address)
+        ->setPhone($this->faker->e164PhoneNumber)
+        ->setWebsite("www.".$this->getReference(UserFixtures::USER5_TRAINING_COMPANY)->getUsername().".com")
+        ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
+        ->setTrn("...")
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
+        ->setUser($this->getReference(UserFixtures::USER5_TRAINING_COMPANY));
+        ////////////////////////////////////////////////////////////////////////////////
+
+        
+        $manager->persist($company1);
+        $manager->persist($company2);
+        $manager->persist($company3);
+        $manager->persist($company4);
+        $manager->persist($company5);
+
+        $manager->persist($training_company1);
+        $manager->persist($training_company2);
+        $manager->persist($training_company3);
+        $manager->persist($training_company4);
+        $manager->persist($training_company5);
+
 
         $manager->flush();
 
-        $this->addReference(self::INSODEV_REF, $insodev);
-        $this->addReference(self::SATORIPOP_REF, $satoripop);
-        $this->addReference(self::CIFOP_IMS, $cifop_ims);
+        $this->addReference(self::COMPANY1, $company1);
+        $this->addReference(self::COMPANY2, $company2);
+        $this->addReference(self::COMPANY3, $company3);
+        $this->addReference(self::COMPANY4, $company4);
+        $this->addReference(self::COMPANY5, $company5);
 
+        $this->addReference(self::TRAINING_COMPANY1, $training_company1);
+        $this->addReference(self::TRAINING_COMPANY2, $training_company2);
+        $this->addReference(self::TRAINING_COMPANY3, $training_company3);
+        $this->addReference(self::TRAINING_COMPANY4, $training_company4);
+        $this->addReference(self::TRAINING_COMPANY5, $training_company5);
     }
 
     public function getDependencies(){

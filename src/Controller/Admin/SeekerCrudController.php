@@ -24,7 +24,7 @@ class SeekerCrudController extends AbstractCrudController
             TextField::new('lastName'),
             TextField::new('civility'),
             DateField::new('birthDate'),
-            TextField::new('city'),
+            TextField::new('address'),
             AssociationField::new('user'),
             AssociationField::new('country'),
         ];

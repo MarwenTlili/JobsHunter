@@ -3,26 +3,41 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Faker\Factory;
 
 class UserFixtures extends Fixture{
     private $passwordEncoder;
-    public const ANGELA_USER = "angela-user";
-    public const AMIRA_USER = "amira-user";
-    public const INSODEV_COMP = "insodev-comp";
-    public const PROXYM_COMP = "proxym-comp";
-    public const CALLIMPACT_COMP = "callimpact-comp";
-    public const SMOOTHALGO_COMP = "smoothalto-comp";
-    public const CIFOPIMS_COMP = "cifopims-comp";
-    public const PROSERVICES = "proservices-comp";
+    protected $faker;
+
+    public const USER = "user";
+    public const ADMIN = "admin";
+    public const USER1_COMPANY = "USER1_COMPANY";
+    public const USER2_COMPANY = "USER2_COMPANY";
+    public const USER3_COMPANY = "USER3_COMPANY";
+    public const USER4_COMPANY = "USER4_COMPANY";
+    public const USER5_COMPANY = "USER5_COMPANY";
+    public const USER1_TRAINING_COMPANY = "USER1_TRAINING_COMPANY";
+    public const USER2_TRAINING_COMPANY = "USER2_TRAINING_COMPANY";
+    public const USER3_TRAINING_COMPANY = "USER3_TRAINING_COMPANY";
+    public const USER4_TRAINING_COMPANY = "USER4_TRAINING_COMPANY";
+    public const USER5_TRAINING_COMPANY = "USER5_TRAINING_COMPANY";
+    public const USER1_SEEKER = "USER1_SEEKER";
+    public const USER2_SEEKER = "USER2_SEEKER";
+    public const USER3_SEEKER = "USER3_SEEKER";
+    public const USER4_SEEKER = "USER4_SEEKER";
+
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder){
         $this->passwordEncoder = $passwordEncoder;
     }
-    
+
     public function load(ObjectManager $manager){
+        $this->faker = Factory::create();
+
         $user = new User();
         $user->setEmail("user@gmail.com")
         ->setUsername("user")
@@ -37,81 +52,161 @@ class UserFixtures extends Fixture{
         ->setPassword($this->passwordEncoder->encodePassword($admin, "admin"))
         ->setCreatedAt(new \DateTimeImmutable());
 
-        $angela = new User();
-        $angela->setEmail("angela@gmail.com")
-        ->setUsername("angela")
+        ////////////////////////////////////////////////////////////////////////////////
+        // Companies
+        $username = $this->faker->userName;
+        $company1 = new User();
+        $company1->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($company1, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $company2 = new User();
+        $company2->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($company2, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $company3 = new User();
+        $company3->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($company3, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $company4 = new User();
+        $company4->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($company4, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $company5 = new User();
+        $company5->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($company5, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+        ////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // Training Companies
+        $username = $this->faker->userName;
+        $training_company1 = new User();
+        $training_company1->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($training_company1, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $training_company2 = new User();
+        $training_company2->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($training_company2, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $training_company3 = new User();
+        $training_company3->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($training_company3, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $training_company4 = new User();
+        $training_company4->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($training_company4, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+
+        $username = $this->faker->userName;
+        $training_company5 = new User();
+        $training_company5->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_COMPANY"])
+        ->setPassword($this->passwordEncoder->encodePassword($training_company5, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+        ////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // Seekers
+        $username = $this->faker->userName;
+        $seeker1 = new User();
+        $seeker1->setEmail($this->faker->email)
+        ->setUsername($username)
         ->setRoles(["ROLE_SEEKER"])
-        ->setPassword($this->passwordEncoder->encodePassword($angela, 'angela'))
-        ->setCreatedAt(new \DateTimeImmutable());
+        ->setPassword($this->passwordEncoder->encodePassword($seeker1, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
 
-        $amira = new User();
-        $amira->setEmail("amira@gmail.com")
-        ->setUsername("amira")
+        $username = $this->faker->userName;
+        $seeker2 = new User();
+        $seeker2->setEmail($this->faker->email)
+        ->setUsername($username)
         ->setRoles(["ROLE_SEEKER"])
-        ->setPassword($this->passwordEncoder->encodePassword($amira, 'amira'))
-        ->setCreatedAt(new \DateTimeImmutable());
+        ->setPassword($this->passwordEncoder->encodePassword($seeker2, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
 
-        $insodev = new User();
-        $insodev->setEmail("insodev@gmail.com")
-        ->setUsername("insodev")
-        ->setRoles(["ROLE_EMPLOYER"])
-        ->setPassword($this->passwordEncoder->encodePassword($insodev, 'insodev'))
-        ->setCreatedAt(new \DateTimeImmutable());
+        $username = $this->faker->userName;
+        $seeker3 = new User();
+        $seeker3->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_SEEKER"])
+        ->setPassword($this->passwordEncoder->encodePassword($seeker3, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
 
-        $proxym = new User();
-        $proxym->setEmail("proxym@gmail.com")
-        ->setUsername("proxym")
-        ->setRoles(["ROLE_EMPLOYER"])
-        ->setPassword($this->passwordEncoder->encodePassword($proxym, 'proxym'))
-        ->setCreatedAt(new \DateTimeImmutable());
-
-        $call_impact = new User();
-        $call_impact->setEmail("callimpact@gmail.com")
-        ->setUsername("callimpact")
-        ->setRoles(["ROLE_EMPLOYER"])
-        ->setPassword($this->passwordEncoder->encodePassword($call_impact, 'callimpact'))
-        ->setCreatedAt(new \DateTimeImmutable());
-
-        $smooth_algo = new User();
-        $smooth_algo->setEmail("smoothalto@gmail.com")
-        ->setUsername("smoothalgo")
-        ->setRoles(["ROLE_EMPLOYER"])
-        ->setPassword($this->passwordEncoder->encodePassword($smooth_algo, 'smoothalgo'))
-        ->setCreatedAt(new \DateTimeImmutable());
-
-        $cifop_ims = new User();
-        $cifop_ims->setEmail("cifopims@gmail.com")
-        ->setUsername("CIFOP-IMS")
-        ->setRoles(["ROLE_EMPLOYER"])
-        ->setPassword($this->passwordEncoder->encodePassword($cifop_ims, 'cifopims'))
-        ->setCreatedAt(new \DateTimeImmutable());
-
-        $proservices = new User();
-        $proservices->setEmail("proServices@gmail.com")
-        ->setUsername("proservices")
-        ->setRoles(["ROLE_EMPLOYER"])
-        ->setPassword($this->passwordEncoder->encodePassword($proservices, 'proservices'))
-        ->setCreatedAt(new \DateTimeImmutable());
+        $username = $this->faker->userName;
+        $seeker4 = new User();
+        $seeker4->setEmail($this->faker->email)
+        ->setUsername($username)
+        ->setRoles(["ROLE_SEEKER"])
+        ->setPassword($this->passwordEncoder->encodePassword($seeker3, $username))
+        ->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeThisDecade($max = 'now', $timezone = null)));
+        ////////////////////////////////////////////////////////////////////////////////
 
         $manager->persist($user);
         $manager->persist($admin);
-        $manager->persist($angela);
-        $manager->persist($amira);
-        $manager->persist($insodev);
-        $manager->persist($proxym);
-        $manager->persist($call_impact);
-        $manager->persist($smooth_algo);
-        $manager->persist($cifop_ims);
-        $manager->persist($proservices);
+
+        $manager->persist($company1);
+        $manager->persist($company2);
+        $manager->persist($company3);
+        $manager->persist($company4);
+
+        $manager->persist($seeker1);
+        $manager->persist($seeker2);
+        $manager->persist($seeker3);
+        $manager->persist($seeker4);
 
         $manager->flush();
-        
-        $this->addReference(self::ANGELA_USER, $angela);
-        $this->addReference(self::AMIRA_USER, $amira);
-        $this->addReference(self::CIFOPIMS_COMP, $cifop_ims);
-        $this->addReference(self::PROXYM_COMP, $proxym);
-        $this->addReference(self::PROSERVICES, $proservices);
-        $this->addReference(self::INSODEV_COMP, $proservices);
+
+        $this->addReference(self::USER, $user);
+        // $this->addReference(self::ADMIN, $admin);
+
+        $this->addReference(self::USER1_COMPANY, $company1);
+        $this->addReference(self::USER2_COMPANY, $company2);
+        $this->addReference(self::USER3_COMPANY, $company3);
+        $this->addReference(self::USER4_COMPANY, $company4);
+        $this->addReference(self::USER5_COMPANY, $company5);
+
+        $this->addReference(self::USER1_TRAINING_COMPANY, $training_company1);
+        $this->addReference(self::USER2_TRAINING_COMPANY, $training_company2);
+        $this->addReference(self::USER3_TRAINING_COMPANY, $training_company3);
+        $this->addReference(self::USER4_TRAINING_COMPANY, $training_company4);
+        $this->addReference(self::USER5_TRAINING_COMPANY, $training_company5);
+
+        $this->addReference(self::USER1_SEEKER, $seeker1);
+        $this->addReference(self::USER2_SEEKER, $seeker2);
+        $this->addReference(self::USER3_SEEKER, $seeker3);
+        $this->addReference(self::USER4_SEEKER, $seeker4);
 
     }
 }
