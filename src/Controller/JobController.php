@@ -124,4 +124,11 @@ class JobController extends AbstractController
 
         return $this->redirectToRoute('job_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    public function recentJobs(JobRepository $jobRepository, int $max = 3)
+    {
+        return $this->render('job/_recent_jobs.html.twig', [
+            'jobs' => $jobRepository->getLastJobs($max)
+        ]);
+    }
 }

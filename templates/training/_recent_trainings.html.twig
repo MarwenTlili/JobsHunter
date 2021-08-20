@@ -1,0 +1,17 @@
+{% for training in trainings %}
+    <div class="training">
+        <div>
+            {{ training.title }}
+            {{ training.createdAt ? training.createdAt|date('Y-m-d') : '' }}
+        </div>
+        {{ training.address }}
+        {{ training.description[:50] ~ '...'}}
+
+        {# <a href="{{ path('training_show', {'slug': training.slug}) }}">show</a> #}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {# <a href="{{ path('training_edit', {'slug': training.slug}) }}">edit</a> #}
+        {% endif %}
+
+    </div><hr>
+{% endfor %}

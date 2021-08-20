@@ -5,11 +5,11 @@
 {% block body %}
     {% include "menu.html.twig" %}
     
-    {{ form_start(form)}}
+    {# {{ form_start(form)}}
         {{form_row(form.keyword)}}
         {{form_row(form.address)}}
         <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>
-    {{ form_end(form) }}
+    {{ form_end(form) }} #}
 
     <h1>Job index</h1>
    

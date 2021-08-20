@@ -15,9 +15,10 @@ class AppController extends AbstractController
      */
     public function index(JobRepository $jobRepository, TrainingRepository $trainingRepository): Response
     {
-        return $this->render('app/index.html.twig', [
-            'lastJobs' => $jobRepository->getLastJobs(),
-            'lastTrainings' => $trainingRepository->getLastTrainings(),
-        ]);
+        return $this->render('app/index.html.twig');
     }
+
+    
+
+    
 }
