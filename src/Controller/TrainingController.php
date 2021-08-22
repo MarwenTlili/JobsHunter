@@ -113,11 +113,4 @@ class TrainingController extends AbstractController
 
         return $this->redirectToRoute('training_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    public function recentTrainings(TrainingRepository $trainingRepository, int $max = 3)
-    {
-        return $this->render('training\_recent_trainings.html.twig', [
-            'trainings' => $trainingRepository->getLastTrainings($max)
-        ]);
-    }
 }
