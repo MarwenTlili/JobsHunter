@@ -24,19 +24,7 @@ class JobController extends AbstractController
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        
-        $form = $this->createForm(SearchJobsType::class, [
-            'method' => 'POST',
-            'action' => $this->generateUrl('job_index')
-        ]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $items = $jobRepository->searchAllDESC($data);
-        }else{
-            $items = $jobRepository->findAllDESC();
-        }
+        $items = $jobRepository->findAllDESC();
         
         $jobs = $paginator->paginate(
             $items, /* query NOT result */
@@ -46,7 +34,8 @@ class JobController extends AbstractController
 
         return $this->render('job/index.html.twig', [
             'jobs' => $jobs,
-            'form' => $form->createView()
+            // 'form' => $form->createView()
+            
         ]);
     }
 
@@ -130,4 +119,5 @@ class JobController extends AbstractController
             'jobs' => $jobRepository->getLastJobs($max)
         ]);
     }
+
 }
