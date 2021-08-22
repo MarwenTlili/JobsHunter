@@ -1,9 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    {% include "menu.html.twig" %}
+    {# <p>The current version is {{ constant('\Twig\\Environment::VERSION') }}</p>  #}
+
+    {# {{ form_start(form)}}
+        {{form_row(form.keyword)}}
+        {{form_row(form.address)}}
+        <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>
+    {{ form_end(form) }} #}
+
+    {# {{ render(controller(
+        'App\\Controller\\JobController::searchForm'
+    )) }} #}
+
+    {# {{ render(url('job_search')) }} #}
+
+
     <h3>Dérniere offres d'emploi</h3>
     {{ render(controller(
         'App\\Controller\\JobController::recentJobs', {max: 3}

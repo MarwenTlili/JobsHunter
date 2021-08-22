@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Edit Seeker{% endblock %}
 
 {% block body %}
-    {% include "menu.html.twig" %}
-
     <h1>Edit Seeker</h1>
 
     {{ include('seeker/_form.html.twig', {'button_label': 'Update'}) }}

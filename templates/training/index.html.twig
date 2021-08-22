@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Training index{% endblock %}
 
 {% block body %}
-    {% include "menu.html.twig" %}
-
     {{ form_start(form)}}
         {{form_row(form.keyword)}}
         {{form_row(form.address)}}

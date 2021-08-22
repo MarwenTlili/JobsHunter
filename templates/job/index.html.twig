@@ -1,15 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Job index{% endblock %}
 
 {% block body %}
-    {% include "menu.html.twig" %}
     
     {# {{ form_start(form)}}
         {{form_row(form.keyword)}}
         {{form_row(form.address)}}
         <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>
     {{ form_end(form) }} #}
+
+    {# {{ render(controller(
+        'App\\Controller\\JobController::searchForm'
+    )) }} #}
+
 
     <h1>Job index</h1>
    

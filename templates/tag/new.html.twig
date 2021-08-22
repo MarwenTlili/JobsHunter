@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}New Tag{% endblock %}
 
 {% block body %}
-    {% include "menu.html.twig" %}
-
     <h1>Create new Tag</h1>
 
     {{ include('tag/_form.html.twig') }}

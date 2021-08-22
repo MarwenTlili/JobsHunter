@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Company index{% endblock %}
 
 {% block body %}
-    {% include "menu.html.twig" %}
-
      {{ form_start(form)}}
         {{form_row(form.name)}}
         <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>

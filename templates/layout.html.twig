@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{path('app_homepage')}}">JobsHunter</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{path('job_index')}}">Emplois</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('training_index')}}">Formations</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{path('company_index')}}">Entreprises</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{path('contact')}}">Contact</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{path('admin_homepage')}}">Dashboard</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                
+                <form class="d-flex">
+                    {% if not app.user %}
+                        <a class="nav-link" href="{{path('app_login')}}">Login</a>
+                    {% endif %}
+                    
+                    {% if app.user %}
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ app.user.username }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>
+                                    {# <a class="nav-link" href="{{path('app_logout')}}">Logout</a> #}
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}{% endblock %}
