@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Job;
 use App\Form\JobType;
-use App\Form\SearchJobsType;
 use App\Repository\JobRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
