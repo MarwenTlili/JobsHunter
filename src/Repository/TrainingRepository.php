@@ -28,25 +28,6 @@ class TrainingRepository extends ServiceEntityRepository
         return $this->findBy([], ['createdAt' => 'DESC']);
     }
 
-    public function searchAllDESC(Array $data)
-    {
-        $qb = $this->createQueryBuilder('t')
-            ->where('t.title LIKE :keyword')
-            ->setParameter('keyword', '%'.$data['keyword'].'%')
-
-            ->orWhere('t.description LIKE :keyword')
-            ->setParameter('keyword', '%'.$data['keyword'].'%')
-
-            ->andWhere('t.address LIKE :address')
-            ->setParameter('address', '%'.$data['address'].'%')
-
-            ->orderBy('t.createdAt', 'DESC');
-
-        $query = $qb->getQuery();
-
-        return $query->execute();
-    }
-
     public function getLastTrainings()
     {
         $qb = $this->createQueryBuilder('T')

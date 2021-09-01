@@ -3,12 +3,6 @@
 {% block title %}Training index{% endblock %}
 
 {% block body %}
-    {{ form_start(form)}}
-        {{form_row(form.keyword)}}
-        {{form_row(form.address)}}
-        <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>
-    {{ form_end(form) }}
-
     <h1>Training index</h1>
 
     <div><h6>Il y a {{ trainings|length }} Formation.</h6></div>

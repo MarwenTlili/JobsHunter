@@ -22,18 +22,7 @@ class TrainingController extends AbstractController
      */
     public function index(Request $request, TrainingRepository $trainingRepository, PaginatorInterface $paginator): Response
     {
-        $form = $this->createForm(SearchTrainingsType::class, [
-            'method' => 'POST',
-            'action' => $this->generateUrl('job_index')
-        ]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $items = $trainingRepository->searchAllDESC($data);
-        }else{
-            $items = $trainingRepository->findAllDESC();
-        }
+        $items = $trainingRepository->findAllDESC();
         
         $trainings = $paginator->paginate(
             $items, /* query NOT result */
@@ -43,7 +32,6 @@ class TrainingController extends AbstractController
 
         return $this->render('training/index.html.twig', [
             'trainings' => $trainings,
-            'form' => $form->createView()
         ]);
     }
 
