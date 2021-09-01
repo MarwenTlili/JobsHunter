@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-<<<<<<< HEAD
-=======
 use App\Repository\JobRepository;
 use App\Repository\TrainingRepository;
->>>>>>> performance
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
