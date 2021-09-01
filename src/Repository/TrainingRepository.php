@@ -15,6 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class TrainingRepository extends ServiceEntityRepository
 {
     public const PAGINATOR_PER_PAGE = 2;
+    public const LAST_TRAININGS = 5;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -46,10 +47,10 @@ class TrainingRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    public function getLastTrainings($max)
+    public function getLastTrainings()
     {
         $qb = $this->createQueryBuilder('T')
-            ->setMaxResults($max)
+            ->setMaxResults(self::LAST_TRAININGS)
             ->orderBy('T.createdAt', 'DESC')
         ;
 

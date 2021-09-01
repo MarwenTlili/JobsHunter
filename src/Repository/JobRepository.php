@@ -16,6 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class JobRepository extends ServiceEntityRepository
 {
     public const PAGINATOR_PER_PAGE = 2;
+    public const LAST_JOBS = 5;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -50,10 +51,10 @@ class JobRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    public function getLastJobs($max)
+    public function getLastJobs()
     {
         $qb = $this->createQueryBuilder('j')
-            ->setMaxResults($max)
+            ->setMaxResults(self::LAST_JOBS)
             ->orderBy('j.createdAt', 'DESC')
         ;
 
