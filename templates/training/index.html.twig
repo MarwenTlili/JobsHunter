@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Training index</h1>
 
-    <div><h6>Il y a {{ trainings|length }} Formation.</h6></div>
+    <div><h6>Il y a {{ trainingsCount }} Formation.</h6></div>
     <hr>
     {% for training in trainings %}
         <div class="training">

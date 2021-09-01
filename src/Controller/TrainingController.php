@@ -32,6 +32,7 @@ class TrainingController extends AbstractController
 
         return $this->render('training/index.html.twig', [
             'trainings' => $trainings,
+            'trainingsCount' => count($items)
         ]);
     }
 

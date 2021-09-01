@@ -33,6 +33,7 @@ class JobController extends AbstractController
 
         return $this->render('job/index.html.twig', [
             'jobs' => $jobs,
+            'jobsCount' => count($items)
         ]);
     }
 
