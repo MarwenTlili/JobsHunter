@@ -11,20 +11,21 @@
         <button class="btn btn-outline-success">{{ button_label|default('Search') }}</button>
     {{ form_end(form) }} #}
 
+    <h3>Dérniere offres d'emploi</h3>
+    {% include "job/_recent_jobs.html.twig" %}
+    
+    {# {{ render(path('jobs_recent', {max: 5})) }} #}
+
     {# {{ render(controller(
-        'App\\Controller\\JobController::searchForm'
+        'App\\Controller\\JobController::recentJobs', {max: 3}
     )) }} #}
 
-    {# {{ render(url('job_search')) }} #}
-
-
-    <h3>Dérniere offres d'emploi</h3>
-    {{ render(controller(
-        'App\\Controller\\JobController::recentJobs', {max: 3}
-    )) }}
-
     <h3>Dérniere formations</h3>
-    {{ render(controller(
+    {% include "training/_recent_trainings.html.twig" %}
+
+    {# {{ render(path('trainings_recent', {max: 5})) }} #}
+
+    {# {{ render(controller(
         'App\\Controller\\TrainingController::recentTrainings', {max: 3}
-    )) }}
+    )) }} #}
 {% endblock %}
