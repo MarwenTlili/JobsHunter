@@ -22,18 +22,7 @@ class CompanyController extends AbstractController
      */
     public function index(Request $request, CompanyRepository $companyRepository, PaginatorInterface $paginator): Response
     {
-        $form = $this->createForm(SearchCompaniesType::class, [
-            'method' => 'POST',
-            'action' => $this->generateUrl('job_index')
-        ]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $items = $companyRepository->searchAllDESC($data);
-        }else{
-            $items = $companyRepository->findAllDESC();
-        }
+        $items = $companyRepository->findAllDESC();
         
         $companies = $paginator->paginate(
             $items, /* query NOT result */
@@ -43,7 +32,6 @@ class CompanyController extends AbstractController
 
         return $this->render('company/index.html.twig', [
             'companies' => $companies,
-            'form' => $form->createView()
         ]);
     }
 
