@@ -39,18 +39,28 @@ class JobRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    // public function getJobPaginator(int $offset): Paginator
-    // {
-    //     $query = $this->createQueryBuilder('j')
-    //     // ->andWhere('j.id = :id')
-    //     // ->setparameter('id', $job->getId())
-    //     ->orderBy('j.createdAt', 'DESC')
-    //     ->setMaxResults(self::PAGINATOR_PER_PAGE)
-    //     ->setFirstResult($offset)
-    //     ->getQuery();
+    public function searchAllDESC(Array $data)
+    {
+        $queryBuilder = $this->createQueryBuilder('j');
 
-    //     return new Paginator($query);
-    // }
+        if (!empty($data['keyword'])) {
+            $queryBuilder = $queryBuilder
+            ->where('j.title LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%');
+        }
+
+        if (!empty($data['address'])) {
+            $queryBuilder = $queryBuilder
+            ->orWhere('j.address LIKE :address')
+            ->setParameter('address', '%'.$data['address'].'%');
+        }
+
+        $queryBuilder = $queryBuilder->orderBy('j.createdAt', 'DESC');
+
+        $resul = $queryBuilder->getQuery()->execute();
+
+        return $resul;
+    }
 
     // /**
     //  * @return Job[] Returns an array of Job objects

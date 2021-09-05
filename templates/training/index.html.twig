@@ -3,6 +3,8 @@
 {% block title %}Training index{% endblock %}
 
 {% block body %}
+    {% include "job/_search.html.twig" with {form:form} only %}
+
     <h1>Training index</h1>
 
     <div><h6>Il y a {{ trainingsCount }} Formation.</h6></div>

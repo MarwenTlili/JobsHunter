@@ -39,6 +39,29 @@ class TrainingRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function searchAllDESC(Array $data)
+    {
+        $queryBuilder = $this->createQueryBuilder('t');
+
+        if (!empty($data['keyword'])) {
+            $queryBuilder = $queryBuilder
+            ->where('t.title LIKE :keyword')
+            ->setParameter('keyword', '%'.$data['keyword'].'%');
+        }
+
+        if (!empty($data['address'])) {
+            $queryBuilder = $queryBuilder
+            ->orWhere('t.address LIKE :address')
+            ->setParameter('address', '%'.$data['address'].'%');
+        }
+
+        $queryBuilder = $queryBuilder->orderBy('t.createdAt', 'DESC');
+
+        $resul = $queryBuilder->getQuery()->execute();
+
+        return $resul;
+    }
+
     // /**
     //  * @return Training[] Returns an array of Training objects
     //  */
