@@ -10,16 +10,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{path('job_index')}}">Emplois</a>
+                        <a class="nav-link {% if app.request.get('_route')=='job_index' %} active {% endif %}" aria-current="page" href="{{path('job_index')}}">Emplois</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('training_index')}}">Formations</a>
+                        <a class="nav-link {% if app.request.get('_route')=='training_index' %} active {% endif %}" href="{{path('training_index')}}">Formations</a>
                     </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="{{path('company_index')}}">Entreprises</a>
+                        <a class="nav-link {% if app.request.get('_route')=='company_index' %} active {% endif %}" href="{{path('company_index')}}">Entreprises</a>
                     </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="{{path('contact')}}">Contact</a>
+                        <a class="nav-link {% if app.request.get('_route')=='contact' %} active {% endif %}" href="{{path('contact')}}">Contact</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         </li>
@@ -56,44 +56,118 @@
 {% block body %}{% endblock %}
 
 {% block footer %}
-    <footer class="container jumbotron text-center" style="margin-bottom:0">
-        <div class="row">
-            <div class="col-6 col-md">
-                <h5>title</h5>
-                <ul>
-                    <li>Lorem.</li>
-                    <li>Lorem, ipsum.</li>
-                    <li>Lorem.</li>
-                    <li>Lorem.</li>
-                </ul>
+    <button id="scrollup" class="btn btn-danger btn-floating btn-lg">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <!-- Section: Social media -->
+        <section id="top" class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <!-- Left -->
+            <div class="me-5 d-none d-lg-block">
+                <span>Get connected with us on social networks:</span>
             </div>
-            <div class="col-6 col-md">
-                <h5>title</h5>
-                <ul>
-                    <li>Lorem</li>
-                    <li>Lorem</li>
-                    <li>Lorem</li>
-                    <li>Lorem</li>
-                </ul>
+            <!-- Left -->
+            
+            <!-- Right -->
+            <div class="social-links">
+                <a href="#" class="me-4 text-reset">
+                    <i class="bi bi-facebook"></i>
+                </a>
+                <a href="#" class="me-4 text-reset">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="#" class="me-4 text-reset">
+                    <i class="bi bi-google"></i>
+                </a>
+                <a href="#" class="me-4 text-reset">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="#" class="me-4 text-reset">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="#" class="me-4 text-reset">
+                    <i class="bi bi-github"></i>
+                </a>
             </div>
-            <div class="col-6 col-md">
-                <h5>title</h5>
-                <ul>
-                    <li>Lorem.</li>
-                    <li>Lorem, ipsum.</li>
-                    <li>Lorem.</li>
-                    <li>Lorem.</li>
-                </ul>
+            <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+
+        <!-- Section: Links  -->
+        <section id="mid" class="">
+            <div class="container-fluid text-start text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="bi bi-gem me-3"></i>JobsHunter
+                    </h6>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex animi perferendis aut aspernatur molestiae reiciendis culpa.
+                    </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Chercheur
+                        </h6>
+                        <p>
+                            <a href="{{path('job_index')}}" class="text-reset">Trouver un emploi</a>
+                        </p>
+                        <p>
+                            <a href="{{path('training_index')}}" class="text-reset">Trouver une formation</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Employeur
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Publier une annance</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Trouver un CV</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Contact
+                        </h6>
+                        <p><i class="bi bi-house-fill me-3"></i> New York, NY 10012, US</p>
+                        <p>
+                            <i class="bi bi-envelope-fill me-3"></i>
+                            info@jobshunter.com
+                        </p>
+                        <p><i class="bi bi-telephone-fill me-3"></i> + 01 234 567 88</p>
+                        <p><i class="bi bi-printer-fill me-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
             </div>
-            <div class="col-6 col-md">
-                <h5>title</h5>
-                <ul>
-                    <li>Lorem</li>
-                    <li>Lorem</li>
-                    <li>Lorem</li>
-                    <li>Lorem</li>
-                </ul>
-            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div id="bottom" class="text-center p-4">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="https://www.jobshunter.com/">www.jobshunter.com</a>
         </div>
+        <!-- Copyright -->
     </footer>
+    <!-- Footer -->
 {% endblock %}
