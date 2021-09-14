@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class JobRepository extends ServiceEntityRepository
 {
-    public const PAGINATOR_PER_PAGE = 2;
+    public const PAGINATOR_PER_PAGE = 10;
     public const LAST_JOBS = 5;
 
     public function __construct(ManagerRegistry $registry)
