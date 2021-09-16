@@ -133,15 +133,28 @@
                             Employeur
                         </h6>
                         <p>
-                            {% if is_granted('COMPANY_ROLE') %}
-                                <a href="{{path('job_new')}}" class="text-reset">Publier une annance</a>
-                            {% else %}
-                                <a href="{{path('app_login')}}" class="text-reset">Publier une annance</a>
-                            {% endif %}
-                            
+                            <a 
+                                href="{% 
+                                    if is_granted('ROLE_COMPANY') %} 
+                                        {{path('job_new')}} 
+                                    {% else %}
+                                        {{path('app_login')}} 
+                                    {% endif %}
+                                " 
+                            class="text-reset">Publier une annance
+                            </a>
                         </p>
                         <p>
-                            <a href="{{path('user_index')}}" class="text-reset">Trouver un CV</a>
+                            <a 
+                                href="{% 
+                                    if is_granted('ROLE_COMPANY') %} 
+                                        {{path('user_index')}} 
+                                    {% else %}
+                                        {{path('app_login')}} 
+                                    {% endif %}
+                                " 
+                                class="text-reset">Trouver un CV
+                            </a>
                         </p>
                     </div>
                     <!-- Grid column -->
