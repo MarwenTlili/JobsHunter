@@ -2,64 +2,61 @@
 
 {% block navbar %}
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{path('app_homepage')}}">JobsHunter</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+        <a class="navbar-brand" href="{{path('app_homepage')}}">JobsHunter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route')=='job_index' %} active {% endif %}" href="{{path('job_index')}}">Emplois</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route')=='training_index' %} active {% endif %}" href="{{path('training_index')}}">Formations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route')=='company_index' %} active {% endif %}" href="{{path('company_index')}}">Entreprises</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if app.request.get('_route')=='contact' %} active {% endif %}" href="{{path('contact')}}">Contact</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route')=='job_index' %} active {% endif %}" aria-current="page" href="{{path('job_index')}}">Emplois</a>
+                        <a class="nav-link" href="{{path('admin_homepage')}}">Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route')=='training_index' %} active {% endif %}" href="{{path('training_index')}}">Formations</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route')=='company_index' %} active {% endif %}" href="{{path('company_index')}}">Entreprises</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if app.request.get('_route')=='contact' %} active {% endif %}" href="{{path('contact')}}">Contact</a>
-                    </li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('admin_homepage')}}">Dashboard</a>
-                        </li>
-                    {% endif %}
-                </ul>
+                {% endif %}
+            </ul>
+            
+            
+            <form class="form-inline mt-2 mt-md-0">
+                {% if not app.user %}
+                    <a class="nav-link" href="{{path('app_login')}}">Login</a>
+                {% endif %}
                 
-                <form class="d-flex">
-                    {% if not app.user %}
-                        <a class="nav-link" href="{{path('app_login')}}">Login</a>
-                    {% endif %}
-                    
-                    {% if app.user %}
-                        <div class="dropdown">
-                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ app.user.username }}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                {# Company Options #}
-                                {% if is_granted('ROLE_COMPANY') %}
-                                    <li><a class="dropdown-item" href="{{path('job_new', {'slug': app.user.company})}}">Publier un Offre</a></li>
-                                    <li><a class="dropdown-item" href="{{path('company_offers', {'slug': app.user.company})}}">List des Offres</a></li>
-                                    <li><a class="dropdown-item" href="{{path('seeker_index')}}">Profiles</a></li>
-                                {% endif %}
-                                
-                                <li><hr class="dropdown-divider"></li>
+                {% if app.user %}
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% if is_granted('ROLE_COMPANY') %}
+                                <a class="dropdown-item" href="{{path('job_new', {'slug': app.user.company})}}">Publier un Offre</a>
+                                <a class="dropdown-item" href="{{path('company_offers', {'slug': app.user.company})}}">List des Offres</a>
+                                <a class="dropdown-item" href="{{path('seeker_index')}}">Profiles</a>
+                            {% endif %}
+                            
+                            <li><hr class="dropdown-divider"></li>
 
-                                {# Logout Link #}
-                                <li>
-                                    <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>
-                                </li>
-                            </ul>
+                            <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
                         </div>
-                    {% endif %}
-                </form>
-            </div>
+                    </div>
+                {% endif %}
+            </form>
         </div>
     </nav>
-    {# {% dump(app.user) %} #}
+    {% dump(app.user.company) %}
 {% endblock %}
 
 {% block body %}{% endblock %}
@@ -198,3 +195,4 @@
     </footer>
     <!-- Footer -->
 {% endblock %}
+
