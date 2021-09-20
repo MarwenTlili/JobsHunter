@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Company;
 use App\Entity\Job;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -61,6 +62,11 @@ class JobRepository extends ServiceEntityRepository
 
         return $resul;
     }
+
+    // public function getOffers(Company $company)
+    // {
+    //     return $this->findBy([], ['name' => $company->getName()]);
+    // }
 
     // /**
     //  * @return Job[] Returns an array of Job objects

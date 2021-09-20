@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Job;
 use App\Form\CompanyType;
 use App\Form\SearchCompaniesType;
 use App\Repository\CompanyRepository;
+use App\Repository\JobRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,5 +102,23 @@ class CompanyController extends AbstractController
         }
 
         return $this->redirectToRoute('company_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{slug}/offers", name="company_offers")
+     */
+    public function offers(Request $request, PaginatorInterface $paginator, Company $company): Response
+    {
+        $items = $company->getJobs();
+        
+        $jobs = $paginator->paginate(
+            $items, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            CompanyRepository::PAGINATOR_PER_PAGE /*limit per page*/
+        );
+
+        return $this->render('company/offers.html.twig', [
+            'jobs' => $jobs,
+        ]);
     }
 }

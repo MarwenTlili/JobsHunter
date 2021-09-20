@@ -15,15 +15,14 @@
                     <li class="nav-item">
                         <a class="nav-link {% if app.request.get('_route')=='training_index' %} active {% endif %}" href="{{path('training_index')}}">Formations</a>
                     </li>
-                        <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {% if app.request.get('_route')=='company_index' %} active {% endif %}" href="{{path('company_index')}}">Entreprises</a>
                     </li>
-                        <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {% if app.request.get('_route')=='contact' %} active {% endif %}" href="{{path('contact')}}">Contact</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
-                        </li>
-                            <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{path('admin_homepage')}}">Dashboard</a>
                         </li>
                     {% endif %}
@@ -36,13 +35,22 @@
                     
                     {% if app.user %}
                         <div class="dropdown">
-                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ app.user.username }}
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                {# Company Options #}
+                                {% if is_granted('ROLE_COMPANY') %}
+                                    <li><a class="dropdown-item" href="{{path('job_new', {'slug': app.user.company})}}">Publier un Offre</a></li>
+                                    <li><a class="dropdown-item" href="{{path('company_offers', {'slug': app.user.company})}}">List des Offres</a></li>
+                                    <li><a class="dropdown-item" href="{{path('seeker_index')}}">Profiles</a></li>
+                                {% endif %}
+                                
+                                <li><hr class="dropdown-divider"></li>
+
+                                {# Logout Link #}
                                 <li>
                                     <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>
-                                    {# <a class="nav-link" href="{{path('app_logout')}}">Logout</a> #}
                                 </li>
                             </ul>
                         </div>
@@ -51,6 +59,7 @@
             </div>
         </div>
     </nav>
+    {# {% dump(app.user) %} #}
 {% endblock %}
 
 {% block body %}{% endblock %}
@@ -136,19 +145,19 @@
                             <a 
                                 href="{% 
                                     if is_granted('ROLE_COMPANY') %} 
-                                        {{path('job_new')}} 
+                                        {{path('job_new', {'slug': app.user.company})}} 
                                     {% else %}
                                         {{path('app_login')}} 
                                     {% endif %}
                                 " 
-                            class="text-reset">Publier une annance
+                            class="text-reset">Publier une annonce
                             </a>
                         </p>
                         <p>
                             <a 
                                 href="{% 
                                     if is_granted('ROLE_COMPANY') %} 
-                                        {{path('user_index')}} 
+                                        {{path('seeker_index')}} 
                                     {% else %}
                                         {{path('app_login')}} 
                                     {% endif %}

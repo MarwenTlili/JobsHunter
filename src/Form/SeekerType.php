@@ -16,7 +16,6 @@ class SeekerType extends AbstractType
             ->add('lastName')
             ->add('civility')
             ->add('birthDate')
-            ->add('city')
             ->add('user')
             ->add('country')
             ->add('savedJobs')

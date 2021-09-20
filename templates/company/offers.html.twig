@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Jobs{% endblock %}
+
+{% block body %}
+    <h1>Offres</h1>
+    <a href="{{path('job_new', {'slug': app.user.company})}}">Publier une annonce</a>
+    <hr>
+    {% for job in jobs %}
+        <div class="job">
+            <div>
+                {{ job.title }}
+                {{ job.createdAt ? job.createdAt|date('Y-m-d') : '' }}
+            </div>
+            {{ job.address }}
+            {{ job.description[:50] ~ '...'}}
+
+            <a href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
+            {% endif %}
+
+        </div><hr>
+    {% else %}
+        <div>
+            <p>no records found</p>
+        </div>
+    {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig')}}
+    </div>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
 use App\Entity\Job;
 use App\Form\JobType;
 use App\Form\SearchJobsType;
@@ -50,10 +51,11 @@ class JobController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="job_new", methods={"GET","POST"})
+     * @Route("/new/{slug}", name="job_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Company $company): Response
     {
+        dump($company);
         $job = new Job();
         $form = $this->createForm(JobType::class, $job);
         $form->handleRequest($request);
