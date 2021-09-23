@@ -3,11 +3,11 @@
     "app": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_js-node_modules_bootstrap-icons_font_bootstr-b53b32.js",
+        "/build/vendors-node_modules_bootstrap-select_dist_js_bootstrap-select_js-node_modules_bootstrap_dist-5d59eb.js",
         "/build/app.js"
       ],
       "css": [
-        "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_js-node_modules_bootstrap-icons_font_bootstr-b53b32.css",
+        "/build/vendors-node_modules_bootstrap-select_dist_js_bootstrap-select_js-node_modules_bootstrap_dist-5d59eb.css",
         "/build/app.css"
       ]
     }

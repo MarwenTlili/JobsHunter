@@ -7,7 +7,9 @@
 
 const $ = require('jquery');
 require('bootstrap');
+require('bootstrap-select');
 require('bootstrap-icons/font/bootstrap-icons.css');
+require('bootstrap-select/dist/css/bootstrap-select.min.css');
 import './styles/app.scss';
 import './scripts/main.js';
 
