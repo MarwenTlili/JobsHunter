@@ -78,7 +78,11 @@ footer a{
     display: none;
     border-radius: 40%;
     opacity: 0.3;
+    z-index: 999;
 }
 #scrollup:hover{
     opacity: 0.5;
+}
+#nav-form-dropdown-btn{
+    margin-right: 1em;
 }
