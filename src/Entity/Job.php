@@ -119,6 +119,11 @@ class Job
     private $tags;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Profession::class, inversedBy="jobs")
+     */
+    private $professions;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
@@ -128,6 +133,7 @@ class Job
         $this->seekersSaved = new ArrayCollection();
         $this->seekersApplyed = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->professions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -424,6 +430,30 @@ class Job
     public function setSlug(): self{
         $slugify = new Slugify();
         $this->slug = $slugify->slugify($this->getTitle());
+        return $this;
+    }
+
+     /**
+     * @return Collection|Profession[]
+     */
+    public function getProfessions(): Collection
+    {
+        return $this->professions;
+    }
+
+    public function addProfession(Profession $profession): self
+    {
+        if (!$this->professions->contains($profession)) {
+            $this->professions[] = $profession;
+        }
+
+        return $this;
+    }
+
+    public function removeProfession(Profession $profession): self
+    {
+        $this->professions->removeElement($profession);
+
         return $this;
     }
 }

@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}métier{% endblock %}
+
+{% block body %}
+    <div class="jobs">
+        {% for job in jobs %}
+            <div class="job">
+                <div>
+                    {{ job.title }}
+                    {{ job.createdAt ? job.createdAt|date('Y-m-d') : '' }}
+                </div>
+                {{ job.address }}
+                {{ job.description[:50] ~ '...'}}
+
+                <a href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
+                {% endif %}
+
+            </div><hr>
+        {% endfor %}
+    </div>
+
+    {% if jobs|length == 0 %}
+        <div class="container" id="no-content" >
+            <div class="row align-items-center">
+                <div class="col">
+                    <h6>Aucune offre mour cette métier</h6>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

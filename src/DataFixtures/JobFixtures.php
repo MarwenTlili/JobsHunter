@@ -46,7 +46,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE));
 
         $job2 = new Job();
         $job2->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -66,7 +67,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY2))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::ADMINISTRATION));
 
         $job3 = new Job();
         $job3->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -86,7 +88,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY3))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::SANTE));
 
         $job4 = new Job();
         $job4->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -106,7 +109,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY4))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::FINANCE));
 
         $job5 = new Job();
         $job5->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -126,7 +130,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE));
 
         $job6 = new Job();
         $job6->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -146,7 +151,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY3))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE));
 
         $job7 = new Job();
         $job7->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -166,7 +172,9 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
+        ->addProfession($this->getReference(ProfessionFixtures::INGENIERIE));
 
         $job8 = new Job();
         $job8->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -186,7 +194,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY1))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE));
 
         $job9 = new Job();
         $job9->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -206,7 +215,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY2))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::SANTE));
 
         $job10 = new Job();
         $job10->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
@@ -226,7 +236,8 @@ class JobFixtures extends Fixture implements DependentFixtureInterface{
         ->setCompany($this->getReference(CompanyFixtures::COMPANY4))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->addTag($this->getReference(TagFixtures::PHP_REF))
-        ->addTag($this->getReference(TagFixtures::SYMFONY_REF));
+        ->addTag($this->getReference(TagFixtures::SYMFONY_REF))
+        ->addProfession($this->getReference(ProfessionFixtures::ADMINISTRATION));
 
         $manager->persist($job1);
         $manager->persist($job2);

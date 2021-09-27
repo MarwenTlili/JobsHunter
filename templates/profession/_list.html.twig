@@ -1,0 +1,12 @@
+
+<div class="container w-100">
+    <div class="row ">
+        {% for profession in professions %}
+
+            <a class="dropdown-item " href="{{ path('profession_jobs', {'name': profession.name} ) }}">
+                {{ loop.index }} {{ profession.name }}
+            </a>
+
+        {% endfor %}
+    </div>
+</div>

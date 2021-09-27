@@ -25,13 +25,13 @@ class Profession
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Company::class, mappedBy="professions")
+     * @ORM\ManyToMany(targetEntity=Job::class, mappedBy="professions")
      */
-    private $companies;
+    private $jobs;
 
     public function __construct()
     {
-        $this->companies = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,27 +52,27 @@ class Profession
     }
 
     /**
-     * @return Collection|Company[]
+     * @return Collection|Job[]
      */
-    public function getCompanies(): Collection
+    public function getJobs(): Collection
     {
-        return $this->companies;
+        return $this->jobs;
     }
 
-    public function addCompany(Company $company): self
+    public function addJob(Job $job): self
     {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->addProfession($this);
+        if (!$this->jobs->contains($job)) {
+            $this->jobs[] = $job;
+            $job->addProfession($this);
         }
 
         return $this;
     }
 
-    public function removeCompany(Company $company): self
+    public function removeJob(Job $job): self
     {
-        if ($this->companies->removeElement($company)) {
-            $company->removeProfession($this);
+        if ($this->jobs->removeElement($job)) {
+            $job->removeProfession($this);
         }
 
         return $this;

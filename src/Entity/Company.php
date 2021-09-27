@@ -88,16 +88,10 @@ class Company
      */
     private $slug;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Profession::class, inversedBy="companies")
-     */
-    private $professions;
-
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
         $this->trainings = new ArrayCollection();
-        $this->professions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,30 +295,6 @@ class Company
     public function setSlug(): self{
         $slugify = new Slugify();
         $this->slug = $slugify->slugify($this->getName());
-        return $this;
-    }
-
-    /**
-     * @return Collection|Profession[]
-     */
-    public function getProfessions(): Collection
-    {
-        return $this->professions;
-    }
-
-    public function addProfession(Profession $profession): self
-    {
-        if (!$this->professions->contains($profession)) {
-            $this->professions[] = $profession;
-        }
-
-        return $this;
-    }
-
-    public function removeProfession(Profession $profession): self
-    {
-        $this->professions->removeElement($profession);
-
         return $this;
     }
 }

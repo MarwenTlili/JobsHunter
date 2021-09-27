@@ -37,7 +37,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER1_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER1_COMPANY));
 
@@ -50,7 +49,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER2_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER2_COMPANY));
 
@@ -63,7 +61,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER3_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER3_COMPANY));
 
@@ -76,7 +73,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER4_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER4_COMPANY));
 
@@ -89,7 +85,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER5_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER5_COMPANY));
         ////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +100,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER1_TRAINING_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER1_TRAINING_COMPANY));
 
@@ -118,7 +112,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER2_TRAINING_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER2_TRAINING_COMPANY));
 
@@ -131,7 +124,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER3_TRAINING_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER3_TRAINING_COMPANY));
 
@@ -144,7 +136,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER4_TRAINING_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER4_TRAINING_COMPANY));
 
@@ -157,7 +148,6 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface{
         ->setWebsite("www.".$this->getReference(UserFixtures::USER5_TRAINING_COMPANY)->getUsername().".com")
         ->setDescription($this->faker->paragraphs($nb = 3, $asText = true))
         ->setTrn("...")
-        ->addProfession($this->getReference(ProfessionFixtures::INFORMATIQUE))
         ->setCountry($this->getReference(CountryFixtures::TUNISIA_REF))
         ->setUser($this->getReference(UserFixtures::USER5_TRAINING_COMPANY));
         ////////////////////////////////////////////////////////////////////////////////

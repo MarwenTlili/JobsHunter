@@ -7,6 +7,10 @@ use Doctrine\Persistence\ObjectManager;
 
 class ProfessionFixtures extends Fixture{
     public const INFORMATIQUE = "informatique-ref";
+    public const INGENIERIE = "ingenierie-ref";
+    public const FINANCE = "finance-ref";
+    public const SANTE = "Sante-ref";
+    public const ADMINISTRATION = "Administration-ref";
 
     public function load(ObjectManager $manager){
         $informatique = new Profession();
@@ -54,7 +58,7 @@ class ProfessionFixtures extends Fixture{
 
 
         $ingenierie = new Profession();
-        $ingenierie->setName('Ingéniere');
+        $ingenierie->setName('Ingénierie');
 
         $marketing = new Profession();
         $marketing->setName('Marketing');
@@ -128,5 +132,10 @@ class ProfessionFixtures extends Fixture{
         $manager->flush();
 
         $this->addReference(self::INFORMATIQUE, $informatique);
+        $this->addReference(self::SANTE, $sante);
+        $this->addReference(self::ADMINISTRATION, $administration);
+        $this->addReference(self::FINANCE, $finance);
+        $this->addReference(self::INGENIERIE, $ingenierie);
+
     }
 }

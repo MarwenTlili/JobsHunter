@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Job;
 use App\Entity\Profession;
 use App\Form\ProfessionType;
+use App\Repository\JobRepository;
 use App\Repository\ProfessionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,5 +92,22 @@ class ProfessionController extends AbstractController
         }
 
         return $this->redirectToRoute('profession_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{name}/jobs", name="profession_jobs")
+     */
+    public function getJobs(Profession $profession): Response
+    {
+        return $this->render('profession/jobs.html.twig', [
+            'jobs' => $profession->getJobs()
+        ]);
+    }
+
+    public function getList(ProfessionRepository $professionRepository): Response
+    {
+        return $this->render('profession/_list.html.twig', [
+            'professions' => $professionRepository->findAll()
+        ]);
     }
 }
