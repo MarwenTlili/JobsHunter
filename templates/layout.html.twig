@@ -31,11 +31,11 @@
                     {{ render(path('profession_index')) }}
                 </li> #}
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown position-static">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Métiers
                     </a>
-                    <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu mt-0 w-100 shadow border-outline-success" aria-labelledby="navbarDropdown">
                         {{ render(controller('App\\Controller\\ProfessionController::getList')) }}
                     </div>
                 </li>
