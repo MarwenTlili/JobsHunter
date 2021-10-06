@@ -24,4 +24,11 @@ $(function() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+
+    $('form[name="professional_interest"]').on('submit', function(){
+        console.log('professional_interest: submitted');
+    });
+    $('form[name="general_information"]').on('submit', function(){
+        console.log('general_information: submitted');
+    });
 });

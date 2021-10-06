@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Profession;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,44 @@ class ProfessionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Profession::class);
+    }
+
+    public function getNames()
+    {
+        return $this->createQueryBuilder("p")
+        ->select("p.name")
+        ->getQuery()
+        ->getResult();
+
+        // $entityManager = $this->getEntityManager();
+        // $query = $entityManager->createQuery(
+        //     'SELECT p.name
+        //     FROM App\Entity\Profession p'
+        // );
+        // return $query->getResult();
+
+        // return $this->createQueryBuilder('p')
+        //     ->getQuery()->execute();
+        // ;
+
+        /*
+            Select only professions that has jobs
+        */
+        // return $this->createQueryBuilder('p')
+        //     ->innerJoin('p.jobs', 'x')
+        //     ->getQuery()->execute();
+        // ;
+
+        // $entityManager = $this->getEntityManager();
+        // $query = $entityManager->createQuery('
+        //     SELECT p.name FROM App\Entity\Profession p
+        // ');
+        // return $query->getResult();
+
+        // return $this->createQueryBuilder('p')
+        //     ->getQuery()
+        //     ->getResult()
+        // ;
     }
 
     // /**

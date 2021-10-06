@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+    {{ form_row(form.photo, {'label': ''}) }}
+    {{ form_row(form.motivation, {'label': ''}) }}
+    {{ form_row(form.country, {'label': ''}) }}
+    {{ form_row(form.address, {'label': ''}) }}
+    {{ form_row(form.region, {'label': ''}) }}
+    {{ form_row(form.postalCode, {'label': ''}) }}
+    {{ form_row(form.haveDrivingLicence, {'label': ''}) }}
+    {{ form_row(form.ownACar, {'label': ''}) }}
+    {{ form_row(form.phone, {'label': ''}) }}
+    {{ form_row(form.phone2, {'label': ''}) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

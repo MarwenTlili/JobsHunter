@@ -13,7 +13,7 @@ class ProfessionType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('companies')
+            // ->add('jobs')
         ;
     }
 

@@ -3,18 +3,27 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
@@ -31,21 +40,49 @@ class UserController extends AbstractController
     public function new(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+        dump($form->get('plainPassword')->getData());
+        // dump($form->getData('plainPassword'));   FALSE
+        // dump($form['plainPassword']->getData()); TRUE
+        $user->setPlainPassword($form->get('plainPassword')->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            // $password = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            // $user->setPassword($password);
+            $user->setPassword($this->passwordEncoder->encodePassword(
+                // $user, $form->getData('plainPassword')
+                $user, $form->get('plainPassword')->getData()
 
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+            ));
+            dump($form);
+
+            // $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager->persist($user);
+            // $entityManager->flush();
+            // dump($form->getData());
+            // return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
         ]);
+
+        // $form = $this->createForm(UserType::class, $user);
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // $entityManager = $this->getDoctrine()->getManager();
+        //     // $entityManager->persist($user);
+        //     // $entityManager->flush();
+
+        //     // return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        // }
+
+        // return $this->render('user/new.html.twig', [
+        //     'user' => $user,
+        //     'form' => $form->createView(),
+        // ]);
     }
 
     /**

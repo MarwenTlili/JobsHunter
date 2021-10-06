@@ -7,6 +7,7 @@ use App\Entity\Profession;
 use App\Form\ProfessionType;
 use App\Repository\JobRepository;
 use App\Repository\ProfessionRepository;
+use App\Service\ProfessionsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,10 +105,13 @@ class ProfessionController extends AbstractController
         ]);
     }
 
-    public function getList(ProfessionRepository $professionRepository): Response
+    /**
+     * @Route("/get/names", name="profession_names", methods={"GET"})
+     */
+    public function getNames(ProfessionsService $professionsService): Response
     {
         return $this->render('profession/_list.html.twig', [
-            'professions' => $professionRepository->findAll()
+            'professions' => $professionsService->getProfessions()
         ]);
     }
 }

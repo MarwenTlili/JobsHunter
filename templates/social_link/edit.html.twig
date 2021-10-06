@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SocialLink{% endblock %}
+
+{% block body %}
+    <h1>Edit SocialLink</h1>
+
+    {{ include('social_link/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('social_link_index') }}">back to list</a>
+
+    {{ include('social_link/_delete_form.html.twig') }}
+{% endblock %}

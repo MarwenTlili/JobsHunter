@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit GeneralInformation{% endblock %}
+
+{% block body %}
+    <h1>Edit GeneralInformation</h1>
+
+    {{ include('general_information/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('general_information_index') }}">back to list</a>
+
+    {{ include('general_information/_delete_form.html.twig') }}
+{% endblock %}

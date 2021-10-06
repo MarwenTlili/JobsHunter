@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -28,6 +31,12 @@ class User implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     /**
      * @var string The hashed password
@@ -54,6 +63,11 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=Seeker::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $Seeker;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -101,6 +115,16 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
     /**
      * @see UserInterface
      */
@@ -141,12 +165,12 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    // /**
-    //  * @ORM\PrePersist
-    //  */
-    public function setCreatedAt($date): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt($date)
     {
-        $this->createdAt = $date;
+        $this->createdAt = new \DateTimeImmutable();
 
         return $this;
     }
@@ -194,5 +218,17 @@ class User implements UserInterface
 
     public function __toString(){
         return $this->getUsername()."";
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 }

@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,12 +16,23 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('createdAt')
+            ->add('roles', CollectionType::class,[
+                'entry_type'   => ChoiceType::class,
+                'label' => 'Role',
+                'entry_options'  => [
+                    'choices'  => [
+                        'Seeker' => 'ROLE_SEEKER',
+                        'Company'     => 'ROLE_COMPANY',
+                    ],
+                ],
+            ])
+            ->add('password', PasswordType::class,[
+
+            ])
+            // ->add('createdAt')
             ->add('username')
-            ->add('company')
-            ->add('Seeker')
+            // ->add('company')
+            // ->add('Seeker')
         ;
     }
 
