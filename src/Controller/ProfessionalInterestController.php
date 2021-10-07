@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ProfessionalInterest;
 use App\Form\ProfessionalInterestType;
 use App\Repository\ProfessionalInterestRepository;
+use App\Service\ProfessionalInterestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class ProfessionalInterestController extends AbstractController
     /**
      * @Route("/new", name="professional_interest_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ProfessionalInterestService $professionalInterestService): Response
     {
         $request = $this->get('request_stack')->getMasterRequest();
         $professionalInterest = new ProfessionalInterest();
@@ -36,7 +37,6 @@ class ProfessionalInterestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump("professional_interest: submitted");
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($professionalInterest);
             $entityManager->flush();
