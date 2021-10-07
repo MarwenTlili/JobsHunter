@@ -27,8 +27,6 @@ class RegistrationController extends AbstractController
     public function __construct(EmailVerifier $emailVerifier)
     {
         $this->emailVerifier = $emailVerifier;
-        // $this->mailer = $mailer;
-        // $this->adminEmail = $adminEmail;
     }
 
     /**
@@ -39,8 +37,6 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        // dump($form->get('plainPassword')->getData());
-        // $user->setPlainPassword($form->get('plainPassword')->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -89,14 +85,15 @@ class RegistrationController extends AbstractController
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
+            // @TODO Change the redirect on success and handle or remove the flash message in your templates
+            $this->addFlash('success', 'Your email address has been verified.');
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
 
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        
 
         return $this->redirectToRoute('app_homepage');
     }
