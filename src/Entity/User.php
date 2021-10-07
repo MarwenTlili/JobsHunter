@@ -65,7 +65,7 @@ class User implements UserInterface
     private $Seeker;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : 0})
      */
     private $isVerified = false;
 
