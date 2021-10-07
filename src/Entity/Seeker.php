@@ -68,6 +68,11 @@ class Seeker
      */
     private $applyedJobs;
 
+    /**
+     * @ORM\OneToOne(targetEntity=CV::class, inversedBy="seeker", cascade={"persist", "remove"})
+     */
+    private $cv;
+
     public function __construct()
     {
         $this->savedJobs = new ArrayCollection();
@@ -213,5 +218,17 @@ class Seeker
 
     public function __toString(){
         return $this->firstName.' '.$this->lastName;
+    }
+
+    public function getCv(): ?CV
+    {
+        return $this->cv;
+    }
+
+    public function setCv(?CV $cv): self
+    {
+        $this->cv = $cv;
+
+        return $this;
     }
 }

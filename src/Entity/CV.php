@@ -74,6 +74,11 @@ class CV
      */
     private $experiences;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Seeker::class, mappedBy="cv", cascade={"persist", "remove"})
+     */
+    private $seeker;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -275,5 +280,27 @@ class CV
     public function __toString(): string
     {
         return $this->getEducationLevel();
+    }
+
+    public function getSeeker(): ?Seeker
+    {
+        return $this->seeker;
+    }
+
+    public function setSeeker(?Seeker $seeker): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($seeker === null && $this->seeker !== null) {
+            $this->seeker->setCv(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($seeker !== null && $seeker->getCv() !== $this) {
+            $seeker->setCv($this);
+        }
+
+        $this->seeker = $seeker;
+
+        return $this;
     }
 }
