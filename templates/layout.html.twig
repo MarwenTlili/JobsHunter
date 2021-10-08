@@ -64,8 +64,10 @@
                             {% elseif is_granted('ROLE_SEEKER') %}
                                 {% if app.user.isVerified %}
                                     <a href="{{path('profile_index')}}" class="dropdown-item">Profile</a>
+                                    <a href="{{path('cv_index')}}" class="dropdown-item">CV</a>
                                 {% else %}
                                     <a href="{{path('profile_index')}}" class="dropdown-item disabled">Profile</a>
+                                    <a href="{{path('cv_index')}}" class="dropdown-item disabled">CV</a>
                                 {% endif %}
                                 
                             {% endif %}

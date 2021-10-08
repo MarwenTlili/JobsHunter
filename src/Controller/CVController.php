@@ -20,6 +20,8 @@ class CVController extends AbstractController
      */
     public function index(CVRepository $cVRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_SEEKER');
+        
         return $this->render('cv/index.html.twig', [
             'cvs' => $cVRepository->findAll(),
         ]);
