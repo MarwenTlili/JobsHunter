@@ -44,7 +44,6 @@
                 {% endif %}
             </ul>
             
-            
             <form id="nav-form-dropdown-btn" class="form-inline mt-2 mt-md-0">
                 {% if not app.user %}
                     <a href="{{path('app_login')}}" class="nav-link">Login</a>/
@@ -63,7 +62,14 @@
                                 <a class="dropdown-item" href="{{path('seeker_index')}}">Profiles</a>
                             
                             {% elseif is_granted('ROLE_SEEKER') %}
-                                <a href="{{path('profile_index')}}" class="dropdown-item">Profile</a>
+                                {% if app.user.isVerified %}
+                                    <a href="{{path('profile_index')}}" class="dropdown-item">Profile</a>
+                                    <a href="{{path('cv_index')}}" class="dropdown-item">CV</a>
+                                {% else %}
+                                    <a href="{{path('profile_index')}}" class="dropdown-item disabled">Profile</a>
+                                    <a href="{{path('cv_index')}}" class="dropdown-item disabled">CV</a>
+                                {% endif %}
+                                
                             {% endif %}
                             <li><hr class="dropdown-divider"></li>
 
@@ -74,7 +80,17 @@
             </form>
         </div>
     </nav>
-    {# {% dump(app.user.company) %} #}
+    {% if app.user %}
+        {% if not app.user.isVerified %}
+            <div class="alert alert-secondary" role="alert">
+                <strong>Verification link</strong> sent to your E-Mail click it to enable your profile!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endif %}
+    
 {% endblock %}
 
 {% block body %}{% endblock %}
