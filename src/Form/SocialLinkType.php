@@ -19,7 +19,7 @@ class SocialLinkType extends AbstractType
             ->add('youtube')
             ->add('stackoverflow')
             ->add('website')
-            ->add('cv')
+            // ->add('cv')
         ;
     }
 

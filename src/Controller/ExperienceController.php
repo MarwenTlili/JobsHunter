@@ -20,9 +20,15 @@ class ExperienceController extends AbstractController
      */
     public function index(ExperienceRepository $experienceRepository): Response
     {
-        return $this->render('experience/index.html.twig', [
-            'experiences' => $experienceRepository->findAll(),
-        ]);
+        $seeker = $this->getUser()->getSeeker();
+        
+        if ($seeker->getCv()->getExperiences()->isEmpty()) {
+            return $this->redirectToRoute('experience_new', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->render('experience/index.html.twig', [
+                'experiences' => $experienceRepository->findAll(),
+            ]);
+        }
     }
 
     /**
@@ -37,6 +43,11 @@ class ExperienceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($experience);
+
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->addExperience($experience);
+            $entityManager->persist($cv);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('experience_index', [], Response::HTTP_SEE_OTHER);

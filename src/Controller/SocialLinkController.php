@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/social/link")
+ * @Route("/social-link")
  */
 class SocialLinkController extends AbstractController
 {
@@ -20,9 +20,15 @@ class SocialLinkController extends AbstractController
      */
     public function index(SocialLinkRepository $socialLinkRepository): Response
     {
-        return $this->render('social_link/index.html.twig', [
-            'social_links' => $socialLinkRepository->findAll(),
-        ]);
+        $seeker = $this->getUser()->getSeeker();
+        
+        if (!$seeker->getCv()->getSocialLink()) {
+            return $this->redirectToRoute('social_link_new', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('social_link_edit', [
+                'id' => $seeker->getCv()->getSocialLink()->getId()
+            ]);
+        }
     }
 
     /**
@@ -37,6 +43,11 @@ class SocialLinkController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($socialLink);
+
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->setSocialLink($socialLink);
+            $entityManager->persist($cv);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('social_link_index', [], Response::HTTP_SEE_OTHER);

@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     brochures_directory: '%kernel.project_dir%/public/uploads/brochures'
+    pdf_directory: '%kernel.project_dir%/public/uploads/pdf'
     # default_admin_email: admin@example.com
 
 services:
@@ -37,3 +38,6 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%brochures_directory%'
+    App\Service\PdfUploader:
+        arguments:
+            $pdfTargetDirectore: '%pdf_directory%'

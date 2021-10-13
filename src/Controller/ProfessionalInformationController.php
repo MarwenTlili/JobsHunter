@@ -20,9 +20,15 @@ class ProfessionalInformationController extends AbstractController
      */
     public function index(ProfessionalInformationRepository $professionalInformationRepository): Response
     {
-        return $this->render('professional_information/index.html.twig', [
-            'professional_informations' => $professionalInformationRepository->findAll(),
-        ]);
+        $seeker = $this->getUser()->getSeeker();
+       
+        if (!$this->getUser()->getSeeker()->getCv()->getProfessionalInformation()) {
+            return $this->redirectToRoute('professional_information_new', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('professional_information_edit', [
+                'id' => $seeker->getCv()->getProfessionalInformation()->getId()
+            ]);
+        }
     }
 
     /**
@@ -37,6 +43,11 @@ class ProfessionalInformationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($professionalInformation);
+
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->setProfessionalInformation($professionalInformation);
+            $entityManager->persist($cv);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('professional_information_index', [], Response::HTTP_SEE_OTHER);

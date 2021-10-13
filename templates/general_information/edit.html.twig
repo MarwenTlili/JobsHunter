@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Edit GeneralInformation{% endblock %}
 
 {% block body %}
     <h1>Edit GeneralInformation</h1>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {{ include('cv/_sidebar.html.twig') }}
+            </div>
+            <div class="col-8">
+                <img class="rounded-circle" src="{{ asset('uploads/brochures/' ~ general_information.photo) }}" width="120" height="120">
 
-    {{ include('general_information/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('general_information/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('general_information_index') }}">back to list</a>
-
-    {{ include('general_information/_delete_form.html.twig') }}
 {% endblock %}

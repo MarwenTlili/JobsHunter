@@ -20,9 +20,15 @@ class EducationController extends AbstractController
      */
     public function index(EducationRepository $educationRepository): Response
     {
-        return $this->render('education/index.html.twig', [
-            'education' => $educationRepository->findAll(),
-        ]);
+        $seeker = $this->getUser()->getSeeker();
+        
+        if ($seeker->getCv()->getEducations()->isEmpty()) {
+            return $this->redirectToRoute('education_new', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->render('education/index.html.twig', [
+                'educations' => $educationRepository->findAll(),
+            ]);
+        }
     }
 
     /**
@@ -37,6 +43,11 @@ class EducationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($education);
+
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->addEducation($education);
+            $entityManager->persist($cv);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('education_index', [], Response::HTTP_SEE_OTHER);

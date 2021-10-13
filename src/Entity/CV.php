@@ -40,9 +40,9 @@ class CV
     private $views;
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="cv", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Document::class, inversedBy="cv", cascade={"persist", "remove"})
      */
-    private $documents;
+    private $document;
 
     /**
      * @ORM\OneToOne(targetEntity=ProfessionalInformation::class, inversedBy="cv", cascade={"persist", "remove"})
@@ -81,7 +81,6 @@ class CV
 
     public function __construct()
     {
-        $this->documents = new ArrayCollection();
         $this->educations = new ArrayCollection();
         $this->experiences = new ArrayCollection();
     }
@@ -139,32 +138,14 @@ class CV
         return $this;
     }
 
-    /**
-     * @return Collection|Document[]
-     */
-    public function getDocuments(): Collection
+    public function getDocument(): ?Document
     {
-        return $this->documents;
+        return $this->document;
     }
 
-    public function addDocument(Document $document): self
+    public function setDocument(Document $document): self
     {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setCv($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDocument(Document $document): self
-    {
-        if ($this->documents->removeElement($document)) {
-            // set the owning side to null (unless already changed)
-            if ($document->getCv() === $this) {
-                $document->setCv(null);
-            }
-        }
+        $this->document = $document;
 
         return $this;
     }
@@ -279,7 +260,7 @@ class CV
 
     public function __toString(): string
     {
-        return $this->getEducationLevel();
+        return $this->getId();
     }
 
     public function getSeeker(): ?Seeker
