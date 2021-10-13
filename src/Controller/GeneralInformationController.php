@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Country;
 use App\Entity\GeneralInformation;
 use App\Form\GeneralInformationType;
+use App\Repository\CountryRepository;
 use App\Repository\GeneralInformationRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @Route("/general-information")
@@ -23,9 +25,15 @@ class GeneralInformationController extends AbstractController
      */
     public function index(GeneralInformationRepository $generalInformationRepository): Response
     {
-        return $this->render('general_information/index.html.twig', [
-            'general_informations' => $generalInformationRepository->findAll(),
-        ]);
+        $seeker = $this->getUser()->getSeeker();
+       
+        if (!$this->getUser()->getSeeker()->getCv()->getGeneralInformation()) {
+            return $this->redirectToRoute('general_information_new', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('general_information_edit', [
+                'id' => $seeker->getCv()->getGeneralInformation()->getId()
+            ]);
+        }
     }
 
     /**
@@ -33,26 +41,30 @@ class GeneralInformationController extends AbstractController
      */
     public function new(Request $request, FileUploader $fileUploader): Response
     {
-        $request = $this->get('request_stack')->getMasterRequest();
         $generalInformation = new GeneralInformation();
+
         $form = $this->createForm(GeneralInformationType::class, $generalInformation);
+
         $form->handleRequest($request);
-        if ($form->isSubmitted() ) {
-            // dump($form->get('photo')->getData());
+        
+        if ($form->isSubmitted()) {
             /** @var UploadedFile $brochureFile */
-            $brochureFile = $form->get('photo')->getData();
+            $brochureFile = $form->get('brochure')->getData();
             if ($brochureFile) {
-                // dump($brochureFile);
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $generalInformation->setPhoto($brochureFileName);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($generalInformation);
+
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->setGeneralInformation($generalInformation);
+            $entityManager->persist($cv);
+
             $entityManager->flush();
 
-            // return $this->redirectToRoute('general_information_new', [], Response::HTTP_SEE_OTHER);
-            dump("general_information: submitted");
+            return $this->redirectToRoute('general_information_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('general_information/new.html.twig', [
@@ -74,12 +86,26 @@ class GeneralInformationController extends AbstractController
     /**
      * @Route("/{id}/edit", name="general_information_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, GeneralInformation $generalInformation): Response
+    public function edit(Request $request, GeneralInformation $generalInformation, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(GeneralInformationType::class, $generalInformation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $brochureFile */
+            $brochureFile = $form->get('brochure')->getData();
+            if ($brochureFile) {
+                $brochureFileName = $fileUploader->upload($brochureFile);
+                $generalInformation->setPhoto($brochureFileName);
+            }
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($generalInformation);
+
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->setGeneralInformation($generalInformation);
+            $entityManager->persist($cv);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('general_information_index', [], Response::HTTP_SEE_OTHER);

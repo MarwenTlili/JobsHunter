@@ -5,12 +5,12 @@ namespace App\Service;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class FileUploader{
-    private $targetDirectory;
+class PdfUploader{
+    private $pdfTargetDirectore;
 
-    public function __construct($targetDirectory)
+    public function __construct($pdfTargetDirectore)
     {
-        $this->targetDirectory = $targetDirectory;
+        $this->pdfTargetDirectore = $pdfTargetDirectore;
     }
 
     public function upload(UploadedFile $file)
@@ -24,9 +24,9 @@ class FileUploader{
         // dump($fileName);
         try {
             
-            $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->getPdfTargetDirectore(), $fileName);
         } catch (FileException $e) {
-            dump("file won't be moved to '".$this->getTargetDirectory()."'");
+            dump("file won't be moved to '".$this->getPdfTargetDirectore()."'");
             dump($e->getMessage());
             // ... handle exception if something happens during file upload
         }
@@ -34,8 +34,8 @@ class FileUploader{
         return $fileName;
     }
 
-    public function getTargetDirectory()
+    public function getPdfTargetDirectore()
     {
-        return $this->targetDirectory;
+        return $this->pdfTargetDirectore;
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Seeker;
+use App\Entity\User;
 use App\Form\SeekerType;
+use App\Repository\CountryRepository;
 use App\Repository\SeekerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,9 +30,11 @@ class SeekerController extends AbstractController
     /**
      * @Route("/new", name="seeker_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CountryRepository $countryRepository): Response
     {
         $seeker = new Seeker();
+        $seeker->setUser($this->getUser()); // set current loged user
+        $seeker->setCountry($countryRepository->findOneBy(['name' => 'Tunisia'])); // set default country
         $form = $this->createForm(SeekerType::class, $seeker);
         $form->handleRequest($request);
 
@@ -39,7 +43,7 @@ class SeekerController extends AbstractController
             $entityManager->persist($seeker);
             $entityManager->flush();
 
-            return $this->redirectToRoute('seeker_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('seeker/new.html.twig', [
@@ -61,15 +65,17 @@ class SeekerController extends AbstractController
     /**
      * @Route("/{id}/edit", name="seeker_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Seeker $seeker): Response
+    public function edit(Request $request, Seeker $seeker, User $user): Response
     {
+        $user = $this->getUser();
+        $seeker = $user->getSeeker();
         $form = $this->createForm(SeekerType::class, $seeker);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('seeker_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('seeker_edit', ['id' => $seeker->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('seeker/edit.html.twig', [

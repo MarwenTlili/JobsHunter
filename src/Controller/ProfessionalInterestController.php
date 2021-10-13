@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\ProfessionalInterest;
 use App\Form\ProfessionalInterestType;
 use App\Repository\ProfessionalInterestRepository;
-use App\Service\ProfessionalInterestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,17 +18,23 @@ class ProfessionalInterestController extends AbstractController
     /**
      * @Route("/", name="professional_interest_index", methods={"GET"})
      */
-    public function index(ProfessionalInterestRepository $ProfessionalInterestRepository): Response
+    public function index(Request $request,ProfessionalInterestRepository $ProfessionalInterestRepository): Response
     {
-        return $this->render('professional_interest/index.html.twig', [
-            'professional_interests' => $ProfessionalInterestRepository->findAll(),
-        ]);
+        $seeker = $this->getUser()->getSeeker();
+       
+        if (!$this->getUser()->getSeeker()->getCv()->getProfessionalInterest()) {
+            return $this->redirectToRoute('professional_interest_new', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('professional_interest_edit', [
+                'id' => $seeker->getCv()->getProfessionalInterest()->getId()
+            ]);
+        }
     }
 
     /**
      * @Route("/new", name="professional_interest_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ProfessionalInterestService $professionalInterestService): Response
+    public function new(Request $request): Response
     {
         $request = $this->get('request_stack')->getMasterRequest();
         $professionalInterest = new ProfessionalInterest();
@@ -39,18 +44,13 @@ class ProfessionalInterestController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($professionalInterest);
-            $entityManager->flush();
-
-            // return $this->redirectToRoute('general_information_new');
-            // return $this->redirectToRoute('professional_interest_new', [
-            //     'professional_interest' => $professionalInterest,
-            //     'form' => $form->createView()
-            // ]);
-
-            // return $this->redirect($this->generateUrl('profile_index')); 
-            // return $this->redirectToRoute('profile_index', [], Response::HTTP_SEE_OTHER);
-            // return $this->redirect($request->getUri());
             
+            $cv = $this->getUser()->getSeeker()->getCv();
+            $cv->setProfessionalInterest($professionalInterest);
+            $entityManager->persist($cv);
+
+            $entityManager->flush();
+            return $this->redirectToRoute('professional_interest_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('professional_interest/new.html.twig', [

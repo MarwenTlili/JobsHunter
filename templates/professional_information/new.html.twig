@@ -1,11 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}New ProfessionaInformation{% endblock %}
 
 {% block body %}
     <h1>Create new ProfessionaInformation</h1>
 
-    {{ include('professional_information/_form.html.twig') }}
-
-    <a href="{{ path('professional_information_index') }}">back to list</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {{ include('cv/_sidebar.html.twig') }}
+            </div>
+            <div class="col-8">
+                {{ include('professional_information/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

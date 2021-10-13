@@ -1,13 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Edit PprofessionalInterest{% endblock %}
 
 {% block body %}
     <h1>Edit ProfessionalInterest</h1>
 
-    {{ include('professional_interest/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {{ include('cv/_sidebar.html.twig') }}
+            </div>
+            <div class="col-8">
+                {{ include('professional_interest/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('professional_interest_index') }}">back to list</a>
-
-    {{ include('professional_interest/_delete_form.html.twig') }}
 {% endblock %}

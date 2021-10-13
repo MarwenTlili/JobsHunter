@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\CV;
+use App\Entity\Seeker;
+use App\Entity\User;
 use App\Form\CVType;
 use App\Repository\CVRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,11 +18,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class CVController extends AbstractController
 {
     /**
-     * @Route("/", name="cv_index", methods={"GET"})
+     * @Route("/", name="cv_index", methods={"GET", "POST"})
      */
     public function index(CVRepository $cVRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_SEEKER');
+
+        $user = $this->getUser();
+        $seeker = $this->getUser()->getSeeker();
+        
+        dump($user);
+        dump($seeker);
+
+        if (!$this->getUser()->getSeeker()->getCv()) {
+            $cv = new CV();
+            $seeker->setCv($cv);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cv);
+            $entityManager->persist($seeker);
+            $entityManager->flush();
+        }else{
+            return $this->redirectToRoute('cv_edit', [
+                'id' => $seeker->getCv()->getId()
+            ], Response::HTTP_SEE_OTHER);
+        }
         
         return $this->render('cv/index.html.twig', [
             'cvs' => $cVRepository->findAll(),

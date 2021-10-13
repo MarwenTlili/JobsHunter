@@ -1,4 +1,7 @@
 $(function() {
+    /////////////////////////////////////////////////////////////////////////////////
+    // Scroll Up
+    /////////////////////////////////////////////////////////////////////////////////
     //Get the button
     let scrollup = document.getElementById("scrollup");
 
@@ -24,11 +27,28 @@ $(function() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+    /////////////////////////////////////////////////////////////////////////////////
 
-    $('form[name="professional_interest"]').on('submit', function(){
-        console.log('professional_interest: submitted');
+    /////////////////////////////////////////////////////////////////////////////////
+    // Experience page new/edit
+    /////////////////////////////////////////////////////////////////////////////////
+    $('#experience_current').change(function() {
+        $("#experience_end").toggle(!$(this).is(':checked'));
     });
-    $('form[name="general_information"]').on('submit', function(){
-        console.log('general_information: submitted');
+    $('#experience_current').trigger('change');
+    /////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////
+    // Education page new/edit
+    /////////////////////////////////////////////////////////////////////////////////
+    $('#education_current').change(function() {
+        $("#education_end").toggle(!$(this).is(':checked'));
     });
+    $('#education_current').trigger('change');
+    /////////////////////////////////////////////////////////////////////////////////
+    
+
+    // $('form[name="general_information"]').on('submit', function(){
+    //     console.log('general_information: submitted');
+    // });
 });

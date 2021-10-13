@@ -14,7 +14,7 @@ class ProfessionalInformationType extends AbstractType
         $builder
             ->add('languages')
             ->add('skills')
-            ->add('cv')
+            // ->add('cv')
         ;
     }
 

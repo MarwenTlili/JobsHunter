@@ -1,43 +1,42 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Education index{% endblock %}
 
 {% block body %}
     <h1>Education index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DiplomaTitle</th>
-                <th>Establishment</th>
-                <th>StartAt</th>
-                <th>EndAt</th>
-                <th>Current</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for education in education %}
-            <tr>
-                <td>{{ education.id }}</td>
-                <td>{{ education.diplomaTitle }}</td>
-                <td>{{ education.establishment }}</td>
-                <td>{{ education.startAt ? education.startAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ education.endAt ? education.endAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ education.current ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('education_show', {'id': education.id}) }}">show</a>
-                    <a href="{{ path('education_edit', {'id': education.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('education_new') }}">Create new</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {{ include('cv/_sidebar.html.twig') }}
+            </div>
+            <div class="col-8">
+                <a href="{{ path('education_new') }}">Ajouter</a>
+                {% for education in educations %}
+                    <div class="card">
+                        <h5 class="card-header">
+                            {{education.diplomaTitle}}
+                        </h5>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{education.establishment}}
+                            </h5>
+                            <h5>
+                                de:{{education.startAt | date('d-m-Y')}}
+                                {% if not education.current %}
+                                    à:{{education.endAt | date('d-m-Y')}}
+                                {% else %}
+                                    en cours...
+                                    {# {{education.current}} #}
+                                {% endif %}
+                            </h5>
+                            <p class="card-text"></p>
+                            <a href="{{ path('education_edit', {'id': education.id}) }}">Modifier</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}

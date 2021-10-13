@@ -28,8 +28,7 @@ class Document
     private $realisation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="documents")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=CV::class, mappedBy="document", cascade={"persist", "remove"})
      */
     private $cv;
 

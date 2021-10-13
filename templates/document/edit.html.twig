@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Edit Document{% endblock %}
 
 {% block body %}
     <h1>Edit Document</h1>
 
-    {{ include('document/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('document_index') }}">back to list</a>
-
-    {{ include('document/_delete_form.html.twig') }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {{ include('cv/_sidebar.html.twig') }}
+            </div>
+            <div class="col-8">
+                <a href="{{ asset('uploads/pdf/' ~ document.diploma) }}">View your diploma file (PDF)</a> | 
+                <a href="{{ asset('uploads/pdf/' ~ document.realisation) }}">View your realisation file (PDF)</a>
+                {{ include('document/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}
