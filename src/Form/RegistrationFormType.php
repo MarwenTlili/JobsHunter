@@ -32,10 +32,10 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('username', TextType::class, [
-                'data' => 'company1'
+                'data' => 'seeker2'
             ])
             ->add('email', EmailType::class, [
-                'data' => 'company1@gmail.com'
+                'data' => 'seeker2@gmail.com'
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

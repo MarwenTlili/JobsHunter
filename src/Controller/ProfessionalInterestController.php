@@ -21,8 +21,12 @@ class ProfessionalInterestController extends AbstractController
     public function index(Request $request,ProfessionalInterestRepository $ProfessionalInterestRepository): Response
     {
         $seeker = $this->getUser()->getSeeker();
+
+        if (!$seeker->getCv()) {
+            return $this->redirectToRoute('seeker_new');
+        }
        
-        if (!$this->getUser()->getSeeker()->getCv()->getProfessionalInterest()) {
+        if (!$seeker->getCv()->getProfessionalInterest()) {
             return $this->redirectToRoute('professional_interest_new', [], Response::HTTP_SEE_OTHER);
         }else{
             return $this->redirectToRoute('professional_interest_edit', [

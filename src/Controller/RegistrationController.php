@@ -64,7 +64,6 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 'main' // firewall name in security.yaml
             );
-
             
         }
 
@@ -89,18 +88,8 @@ class RegistrationController extends AbstractController
             // @TODO Change the redirect on success and handle or remove the flash message in your templates
             $this->addFlash('success', 'Your email address has been verified.');
             if (in_array('ROLE_COMPANY', $user->getRoles(), true)) {
-                dump("user has ROLE_COMPANY.");
-                // /** @var \App\Entity\Company $company */
-                // $company = new Company();
-                // $user->setcompany($company);
-                // $entityManager->persist($company);
                 return $this->redirectToRoute('company_new');
             } elseif (in_array('ROLE_SEEKER', $user->getRoles(), true)) {
-                dump("user has ROLE_SEEKER.");
-                // /** @var \App\Entity\Seeker $seeker */
-                // $seeker = new Seeker();
-                // $user->setSeeker($seeker);
-                // $entityManager->persist($seeker);
                 return $this->redirectToRoute('seeker_new');
             }
             
