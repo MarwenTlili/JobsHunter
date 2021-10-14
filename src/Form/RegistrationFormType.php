@@ -23,19 +23,19 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('roles', CollectionType::class,[
                 'entry_type'   => ChoiceType::class,
-                'label' => 'Role',
                 'entry_options'  => [
+                    'label' => false,
                     'choices'  => [
                         'Seeker' => 'ROLE_SEEKER',
-                        'Company'     => 'ROLE_COMPANY',
+                        'Company' => 'ROLE_COMPANY',
                     ],
                 ],
             ])
             ->add('username', TextType::class, [
-                'data' => 'seeker1'
+                'data' => 'company1'
             ])
             ->add('email', EmailType::class, [
-                'data' => 'seeker1@gmail.com'
+                'data' => 'company1@gmail.com'
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

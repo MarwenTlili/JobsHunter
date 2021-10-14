@@ -15,15 +15,13 @@ class CompanyType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('name')
-            ->add('region')
-            ->add('fullAddress')
+            ->add('country')
+            ->add('address')
             ->add('phone')
             ->add('website')
             ->add('description')
             ->add('trn')
-            ->add('user')
-            ->add('activity')
-            ->add('country')
+            // ->add('user')
         ;
     }
 

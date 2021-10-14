@@ -43,6 +43,7 @@ class CompanyController extends AbstractController
     public function new(Request $request): Response
     {
         $company = new Company();
+        $company->setUser($this->getUser());
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
@@ -51,7 +52,9 @@ class CompanyController extends AbstractController
             $entityManager->persist($company);
             $entityManager->flush();
 
-            return $this->redirectToRoute('company_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('company_edit', [
+                'slug' => $company->getSlug()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('company/new.html.twig', [
@@ -81,7 +84,9 @@ class CompanyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('company_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('company_edit', [
+                'slug' => $company->getSlug()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('company/edit.html.twig', [

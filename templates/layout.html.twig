@@ -57,9 +57,19 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             {% if is_granted('ROLE_COMPANY') %}
-                                <a class="dropdown-item" href="{{path('job_new', {'slug': app.user.company})}}">Publier un Offre</a>
-                                <a class="dropdown-item" href="{{path('company_offers', {'slug': app.user.company})}}">List des Offres</a>
-                                <a class="dropdown-item" href="{{path('seeker_index')}}">Profiles</a>
+
+                                {% if app.user.company %}
+                                    <a class="dropdown-item" href="{{ path('company_edit', {'slug': app.user.company}) }}">Profile</a>
+                                    <a class="dropdown-item" href="{{path('job_new', {'slug': app.user.company})}}">Publier un Offre</a>
+                                    <a class="dropdown-item" href="{{path('company_offers', {'slug': app.user.company})}}">List des Offres</a>
+                                    <a class="dropdown-item" href="{{path('seeker_index')}}">CVs</a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{{ path('company_new') }}">Profile</a>
+                                    <a class="dropdown-item disabled" href="#">Publier un Offre</a>
+                                    <a class="dropdown-item disabled" href="#">List des Offres</a>
+                                    <a class="dropdown-item disabled" href="#">CVs</a>
+                                {% endif %}
+
                             {% elseif is_granted('ROLE_SEEKER') %}
                                 {% if app.user.isVerified %}
 
@@ -68,12 +78,13 @@
                                     {% else %}
                                         <a href="{{path('seeker_new')}}" class="dropdown-item">Profile</a>
                                     {% endif %}
-
                                     <a href="{{path('professional_interest_index')}}" class="dropdown-item">CV</a>
+
                                 {% else %}
-                                    <a href="{{path('seeker_new')}}" class="dropdown-item disabled">Profile</a>
-                                    <a href="{{path('professional_interest_index')}}" class="dropdown-item disabled">CV</a>
+                                    <a href="#" class="dropdown-item disabled">Profile</a>
+                                    <a href="#" class="dropdown-item disabled">CV</a>
                                 {% endif %}
+
                             {% endif %}
                             <li><hr class="dropdown-divider"></li>
                             <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
@@ -93,9 +104,6 @@
             </div>
         {% endif %}
     {% endif %}
-    {# <pre>
-        {{ dump(app.user.seeker) }}
-    </pre> #}
 {% endblock %}
 
 {% block body %}{% endblock %}
@@ -159,48 +167,30 @@
                     <!-- Grid column -->
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Chercheur
-                        </h6>
-                        <p>
-                            <a href="{{path('job_index')}}" class="text-reset">Trouver un emploi</a>
-                        </p>
-                        <p>
-                            <a href="{{path('training_index')}}" class="text-reset">Trouver une formation</a>
-                        </p>
+                        <h6 class="text-uppercase fw-bold mb-4">Chercheur</h6>
+                        <p><a href="{{path('job_index')}}" class="text-reset">Trouver un emploi</a></p>
+                        <p><a href="{{path('training_index')}}" class="text-reset">Trouver une formation</a></p>
                     </div>
                     <!-- Grid column -->
 
                     <!-- Grid column -->
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Employeur
-                        </h6>
-                        <p>
-                            <a 
-                                href="{% 
-                                    if is_granted('ROLE_COMPANY') %} 
-                                        {{path('job_new', {'slug': app.user.company})}} 
-                                    {% else %}
-                                        {{path('app_login')}} 
-                                    {% endif %}
-                                " 
-                            class="text-reset">Publier une annonce
-                            </a>
-                        </p>
-                        <p>
-                            <a 
-                                href="{% 
-                                    if is_granted('ROLE_COMPANY') %} 
-                                        {{path('seeker_index')}} 
-                                    {% else %}
-                                        {{path('app_login')}} 
-                                    {% endif %}
-                                " 
-                                class="text-reset">Trouver un CV
-                            </a>
-                        </p>
+                        <h6 class="text-uppercase fw-bold mb-4">Employeur</h6>
+                        
+                            {% if is_granted('ROLE_COMPANY') %}
+                                {% if app.user.company %}
+                                    <p><a href="{{ path('job_new', {'slug': app.user.company}) }}" class="text-reset">Publier une annonce</a></p>
+                                    <p><a href="{{path('seeker_index')}} " class="text-reset">Trouver un CV</a></p>
+                                {% else %}
+                                    <p><a href="#" class="text-reset disabled">Publier une annonce</a></p>
+                                    <p><a href="#" class="text-reset disabled">Trouver un CV</a></p>
+                                {% endif %}
+                            {% else %}
+                                <p><a href="{{ path('app_login') }}" class="text-reset disabled">Publier une annonce</a></p>
+                                <p><a href="{{ path('app_login') }}" class="text-reset disabled">Trouver un CV</a></p>
+                            {% endif %}
+
                     </div>
                     <!-- Grid column -->
 
