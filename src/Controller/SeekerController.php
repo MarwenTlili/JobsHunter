@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CV;
 use App\Entity\Seeker;
 use App\Entity\User;
 use App\Form\SeekerType;
@@ -39,11 +40,18 @@ class SeekerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var \App\Entity\CV $cv */
+            $cv = new CV();
+            $seeker->setCv($cv);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($seeker);
+            $entityManager->persist($cv);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('seeker_edit', [
+                'id' => $seeker->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('seeker/new.html.twig', [

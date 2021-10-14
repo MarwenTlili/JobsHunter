@@ -75,10 +75,11 @@
 
                                     {% if app.user.seeker %}
                                         <a href="{{path('seeker_edit', {'id': app.user.seeker.id})}}" class="dropdown-item">Profile</a>
+                                        <a href="{{path('professional_interest_index')}}" class="dropdown-item">CV</a>
                                     {% else %}
                                         <a href="{{path('seeker_new')}}" class="dropdown-item">Profile</a>
+                                        <a href="#" class="dropdown-item disabled">CV</a>
                                     {% endif %}
-                                    <a href="{{path('professional_interest_index')}}" class="dropdown-item">CV</a>
 
                                 {% else %}
                                     <a href="#" class="dropdown-item disabled">Profile</a>
@@ -104,6 +105,11 @@
             </div>
         {% endif %}
     {% endif %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endblock %}
 
 {% block body %}{% endblock %}
