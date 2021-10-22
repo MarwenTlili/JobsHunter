@@ -1,5 +1,5 @@
-<div class="d-inline-flex p-2 bd-highlight hidden-sm">
-    <ul class="nav nav-tabs flex-column" role="tablist">
+<div class="d-inline-flex p-2 box-inner navbar navbar-light bg-light shadow rounded">
+    <ul class="nav nav-tabs flex-column">
         <li class="nav-item" role="presentation">
             <a id="interest-tab" href="{{ path('professional_interest_index') }}" 
                 class="nav-link {% if app.request.get('_route')=='professional_interest_new' or app.request.get('_route')=='professional_interest_edit' %} active {% endif %}" 

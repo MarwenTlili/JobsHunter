@@ -8,6 +8,7 @@ use App\Form\ProfessionType;
 use App\Repository\JobRepository;
 use App\Repository\ProfessionRepository;
 use App\Service\ProfessionsService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,10 +99,19 @@ class ProfessionController extends AbstractController
     /**
      * @Route("/{name}/jobs", name="profession_jobs")
      */
-    public function getJobs(Profession $profession): Response
+    public function getJobs(Request $request, Profession $profession, PaginatorInterface $paginator): Response
     {
+        $items = $profession->getJobs();
+        $jobs = $paginator->paginate(
+            $items, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            JobRepository::PAGINATOR_PER_PAGE /*limit per page*/
+        );
+
         return $this->render('profession/jobs.html.twig', [
-            'jobs' => $profession->getJobs()
+            // 'jobs' => $profession->getJobs(),
+            'jobs' => $jobs,
+            'jobsCount' => count($items),
         ]);
     }
 

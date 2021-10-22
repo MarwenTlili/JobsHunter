@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Company;
 use App\Entity\Job;
+use App\Entity\Profession;
 use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -61,6 +62,14 @@ class JobType extends AbstractType
                 'required' => true
             ])
             ->add('country')
+            ->add('professions', EntityType::class,[
+                'class' => Profession::class,
+                'attr' => [
+                    'class' => 'selectpicker', 'data-live-search' => 'true'
+                ],
+                'multiple' => true,
+                'required' => false,
+            ])
         ;
     }
 

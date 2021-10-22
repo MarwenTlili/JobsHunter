@@ -8,19 +8,17 @@
 
 const $ = require('jquery');
 
+// import './bootstrap';
 require('bootstrap');
 require('bootstrap-select');
-// require('Hinclude/hinclude');
-
+// require('Hinclude/hinclude'); /* issu with bootstrap-select */
 require('bootstrap-icons/font/bootstrap-icons.css');
 require('bootstrap-select/dist/css/bootstrap-select.min.css');
+
+// any CSS you import will output into a single css file (app.css in this case)
+// import './styles/app.css';
 import './styles/app.scss';
 
 import './scripts/main.js';
 
 
-// any CSS you import will output into a single css file (app.css in this case)
-// import './styles/app.css';
-
-// start the Stimulus application
-// import './bootstrap';

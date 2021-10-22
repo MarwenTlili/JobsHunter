@@ -3,33 +3,48 @@
 {% block title %}Jobs{% endblock %}
 
 {% block body %}
-    <h1>Offres</h1>
-    <a href="{{path('job_new', {'slug': app.user.company})}}">Publier une annonce</a>
-    <hr>
-    {% for job in jobs %}
-        <div class="job">
+
+    <div class="container-fluid">
+
+        <h1>Offres</h1>
+        <a href="{{path('job_new', {'slug': app.user.company})}}">Publier une annonce</a>
+        <hr>
+        {% for job in jobs %}
+            <div class="job">
+                <di class="title">
+                    <a href="{{ path('job_show', {'slug': job.slug}) }}"> <h3>{{ job.title }}</h3></a>
+                </div>
+
+                <div class="createdAt">
+                    <b>Created At</b>
+                    {{ job.createdAt ? job.createdAt|date('d-m-Y') : '' }}
+                </div>
+
+                <div class="address">
+                    <b>Address</b>
+                    {{ job.address }}
+                </div>
+
+                <div class="description">
+                    <b>Description</b>
+                    <div class="text-muted">{{ job.description[:120] ~ '...'}}</div>
+                </div>
+
+                <a class="btn btn-info" href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
+
+                <a class="btn btn-warning" href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
+
+            </div><hr>
+        {% else %}
             <div>
-                {{ job.title }}
-                {{ job.createdAt ? job.createdAt|date('Y-m-d') : '' }}
+                <p>no records found</p>
             </div>
-            {{ job.address }}
-            {{ job.description[:50] ~ '...'}}
+        {% endfor %}
 
-            <a href="{{ path('job_show', {'slug': job.slug}) }}">show</a>
-
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
-            {% endif %}
-
-        </div><hr>
-    {% else %}
-        <div>
-            <p>no records found</p>
+        <div class="navigation">
+            {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig')}}
         </div>
-    {% endfor %}
 
-    <div class="navigation">
-        {{ knp_pagination_render(jobs, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig')}}
     </div>
 
 {% endblock %}

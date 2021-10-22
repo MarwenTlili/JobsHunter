@@ -47,6 +47,16 @@ $(function() {
     $('#education_current').trigger('change');
     /////////////////////////////////////////////////////////////////////////////////
     
+    // $("#toggle-button").on("click", function(){
+    //     $("#sidebar").slideToggle("slow");
+    // })
+
+    $("#toggle-button").on("click", function(){
+        $("#sidebar").slideToggle( "", function() {
+            // Animation complete.
+        });
+        $("i", this).toggleClass("bi bi-arrows-fullscreen bi bi-x-lg");
+    })
 
     // $('form[name="general_information"]').on('submit', function(){
     //     console.log('general_information: submitted');

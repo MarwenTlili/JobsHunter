@@ -3,8 +3,10 @@
 {% block title %}Edit Company{% endblock %}
 
 {% block body %}
-    <h1>Edit Company</h1>
+    <div class="container-fluid">
+        <h1>Edit Company</h1>
 
-    {{ include('company/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('company/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
 
 {% endblock %}

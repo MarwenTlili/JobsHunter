@@ -3,9 +3,11 @@
 {% block title %}New Job{% endblock %}
 
 {% block body %}
-    <h1>Nouveau offre d'emploi</h1>
+    <div class="container-fluid">
+        <h1>Nouveau offre d'emploi</h1>
 
-    {{ include('job/_form.html.twig') }}
+        {{ include('job/_form.html.twig') }}
+    </div>
 
     {# <a href="{{ path('job_index') }}">back to list</a> #}
 {% endblock %}

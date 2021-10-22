@@ -56,7 +56,11 @@ Encore
     })
 
     // enables Sass/SCSS support
-    .enableSassLoader()
+    .enableSassLoader((options) => {
+        options.sassOptions = {
+            quietDeps: true, // disable sass 2/dart-sass warnings
+        }
+    })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

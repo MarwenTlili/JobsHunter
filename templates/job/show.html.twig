@@ -3,68 +3,70 @@
 {% block title %}Job{% endblock %}
 
 {% block body %}
-    <h1>Job</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ job.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ job.title }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ job.address }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ job.createdAt ? job.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ExpireAt</th>
-                <td>{{ job.expireAt ? job.expireAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PostsNumber</th>
-                <td>{{ job.postsNumber }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ job.type }}</td>
-            </tr>
-            <tr>
-                <th>ExperienceMin</th>
-                <td>{{ job.experienceMin }}</td>
-            </tr>
-            <tr>
-                <th>ExperienceMax</th>
-                <td>{{ job.experienceMax }}</td>
-            </tr>
-            <tr>
-                <th>EducationLevel</th>
-                <td>{{ job.educationLevel }}</td>
-            </tr>
-            <tr>
-                <th>RequiredLanguages</th>
-                <td>{{ job.requiredLanguages }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ job.description }}</td>
-            </tr>
-            <tr>
-                <th>Requirements</th>
-                <td>{{ job.requirements }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid">
+        <div class="title">
+            <h3>{{ job.title }}</h3>
+        </div>
 
-    <a href="{{ path('job_index') }}">back to list</a>
+         <div class="company">
+            <i class="bi bi-building" ></i> {{ job.company.name }}
+        </div>
 
-    <a href="{{ path('job_edit', {'slug': job.slug}) }}">edit</a>
+    
+        <div class="address">
+            <i class="bi bi-geo-alt" ></i> {{ job.address }}
+        </div>
 
-    {{ include('job/_delete_form.html.twig') }}
+    
+        <div class="createdAt">
+            {{ job.createdAt ? job.createdAt|date('d-m-Y') : '' }}
+        </div>
+
+        <div class="row ">
+            <div class="postsNumber col-md-4 col-lg-2">
+                <label for=""><b>Nombre de postes</b></label>
+                <p>{{ job.postsNumber }}</p>
+            </div>
+
+            <div class="type col-md-4 col-lg-2">
+                <label for=""><b>Type d'emploi</b></label>
+                <p>{{ job.type }}</p>
+            </div>
+
+            <div class="experienceMin col-md-4 col-lg-2">
+                <label for=""><b>Experice</b></label>
+                <p>de {{ job.experienceMin }} à {{ job.experienceMax }} ans</p>
+            </div>
+        
+            <div class="educationLevel col-md-4 col-lg-2">
+                <label for=""><b>Niveau d'Etude</b></label>
+                <p>{{ job.educationLevel }}</p>
+            </div>
+
+            <div class="requiredLanguages col-md-4 col-lg-2">
+                <label for=""><b>Langues</b></label>
+                <p>{{ job.requiredLanguages }}</p>
+            </div>
+
+        </div>
+
+        <div class="description">
+            <b>Description</b>
+            <p class="text-muted">{{ job.description }}</p>
+        </div>
+    
+        <div class="requirements">
+            <b>Requirements</b>
+            <p class="text-muted">{{ job.requirements }}</p>
+        </div>
+
+    
+        <div class="expireAt">
+            <b>Date d'expiration</b>
+            <p>{{ job.expireAt ? job.expireAt|date('d-m-Y') : '' }}</p>
+        </div>
+
+    </div>
+    
 {% endblock %}

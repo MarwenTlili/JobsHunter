@@ -3,44 +3,47 @@
 {% block title %}Training{% endblock %}
 
 {% block body %}
-    <h1>Training</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ training.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ training.title }}</td>
-            </tr>
-            <tr>
-                <th>Region</th>
-                <td>{{ training.region }}</td>
-            </tr>
-            <tr>
-                <th>FullAddress</th>
-                <td>{{ training.fullAddress }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ training.createdAt ? training.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ training.description }}</td>
-            </tr>
-            <tr>
-                <th>About</th>
-                <td>{{ training.about }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
 
-    <a href="{{ path('training_index') }}">back to list</a>
+        <div class="row">
+            <div class="title">
+                <h3>{{ training.title }}</h3>
+            </div>
+        </div>
 
-    <a href="{{ path('training_edit', {'slug': training.slug}) }}">edit</a>
+        <div class="row">
+            <div class="company">
+                <i class="bi bi-building" ></i> {{ training.company.name }}
+            </div>
+        </div>
 
-    {{ include('training/_delete_form.html.twig') }}
+        <div class="row">
+            <div class="address">
+                <i class="bi bi-geo-alt" ></i> {{ training.address }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="createdAt">
+                {{ training.createdAt ? training.createdAt|date('d-m-Y') : '' }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="description">
+                <b>Description</b>
+                <p class="text-muted">{{ training.description }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="about">
+                <b>A Propos</b>
+                <p class="text-muted">{{ training.about }}</p>
+            </div>
+        </div>
+        
+    </div>
+        
 {% endblock %}

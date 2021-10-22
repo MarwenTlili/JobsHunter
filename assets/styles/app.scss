@@ -3,15 +3,23 @@
 // ###################################################################################################
 // Variables
 // ###################################################################################################
-$navbar-light-active-color: DarkSlateBlue;
-// ###################################################################################################
+$enable-responsive-font-sizes: true;
 
+$navbar-light-active-color: DarkSlateBlue;
+$icons-color: cornflowerblue;
+$text-color: #495057;
+$training-color:tomato;
+
+// ###################################################################################################
 
 // ###################################################################################################
 // Navbar
 // ###################################################################################################
 .navbar{
     background-color: lightslategray;
+    form a{
+        padding: 0.5rem 0.7rem !important;
+    }
 }
 
 .navbar-nav .nav-link.active{
@@ -24,11 +32,89 @@ $navbar-light-active-color: DarkSlateBlue;
 .dropdown-item{
     padding: 0.25rem 1rem;
 }
+
+
+// ###################################################################################################
+// Sidebar
+// ###################################################################################################
+#sidebar{
+    margin:1rem;
+    display: none;
+    text-align: left;
+    width: 100%;
+    padding: 0px;
+    margin:0px;
+    position: absolute;
+    z-index: 2;
+}
+.box-inner{
+    width: 100%;
+    border: 1rem;
+    a{
+        color: gray;
+    }
+    &:link{
+        text-decoration: none;
+    }
+    .nav{
+        width: 100%;
+    }
+}
+
 // ###################################################################################################
 // Content
 // ###################################################################################################
 body {
     background-color: white;
+}
+
+.company, .address, .telephone, .link{
+    i{
+        color: $icons-color;
+    }
+}
+a{
+    &:link{
+        text-decoration: none;
+    }
+}
+.training{
+    .title {
+        .link{
+            color:$training-color;
+        }
+    }
+    i{
+        color: $training-color;
+    }
+    .btn{
+        background-color:$training-color;
+        border-color: $training-color;
+    }
+} 
+form[name*="search_"]{
+    margin-top: 1rem;
+}
+form[name^="professional_interest"]{
+    margin-bottom: 1rem;
+}
+form[name^="general_information"]{
+    margin-bottom: 1rem;
+}
+form[name^="professional_information"]{
+    margin-bottom: 1rem;
+}
+form[name^="experience"]{
+    margin-bottom: 1rem;
+}
+form[name^="education"]{
+    margin-bottom: 1rem;
+}
+form[name^="social_link"]{
+    margin-bottom: 1rem;
+}
+form[name^="document"]{
+    margin-bottom: 1rem;
 }
 // ###################################################################################################
 
@@ -39,6 +125,7 @@ body {
 footer{
     background-color: lightslategray;
     color: whitesmoke;
+    margin-top: 1rem;
 }
 
 footer #bottom{
@@ -75,7 +162,7 @@ footer a{
 // ###################################################################################################
 
 // ###################################################################################################
-// Scroll button
+// Scroll To Top
 // ###################################################################################################
 #scrollup {
     position: fixed;
@@ -91,4 +178,40 @@ footer a{
 }
 #nav-form-dropdown-btn{
     margin-right: 1em;
+}
+
+// ###################################################################################################
+// Media Queries
+// ###################################################################################################
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-up(sm) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+    #sidebar{
+        position:relative;
+        width:auto;
+        margin:0;
+        .nav-link.active{
+            border-color: #dee2e6 #fff #dee2e6 #dee2e6;
+        }
+        .nav-tabs{
+            border-bottom: none;
+        }
+    }
+    #box-liner{
+        position:relative;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-up(lg) {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-up(xl) {
+
 }
