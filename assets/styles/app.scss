@@ -17,21 +17,24 @@ $training-color:tomato;
 // ###################################################################################################
 .navbar{
     background-color: lightslategray;
-    form a{
-        padding: 0.5rem 0.7rem !important;
+    // form a{
+    //     padding: 0.5rem 0.7rem !important;
+    // }
+    .navbar-nav .nav-link.active{
+        color: $navbar-light-active-color !important;
     }
+    #user_dropdown{
+        .dropdown-menu{
+            min-width: 6rem;
+        }
+        .dropdown-item{
+            padding: 0.25rem 1rem;
+        }
+    }
+    
 }
 
-.navbar-nav .nav-link.active{
-    color: $navbar-light-active-color !important;
-}
 
-.dropdown-menu{
-    min-width: 0rem;
-}
-.dropdown-item{
-    padding: 0.25rem 1rem;
-}
 
 
 // ###################################################################################################
