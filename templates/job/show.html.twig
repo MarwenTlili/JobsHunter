@@ -3,8 +3,13 @@
 {% block title %}Job{% endblock %}
 
 {% block body %}
-
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="container-fluid">
+    
         <div class="title">
             <h3>{{ job.title }}</h3>
         </div>
@@ -22,6 +27,18 @@
         <div class="createdAt">
             {{ job.createdAt ? job.createdAt|date('d-m-Y') : '' }}
         </div>
+
+        {# <pre>
+            {{ dump(job in app.user.seeker.applyedJobs) }}
+        </pre>
+
+        <pre>
+            {{ dump(app.user.seeker) }}
+        </pre>
+
+        <pre>
+            {{ dump(job) }}
+        </pre> #}
 
         <div class="row ">
             <div class="postsNumber col-md-4 col-lg-2">
@@ -49,6 +66,38 @@
                 <p>{{ job.requiredLanguages }}</p>
             </div>
 
+        </div>
+
+        {% if app.user %}
+            {% if app.user.seeker %}
+                {% if job not in app.user.seeker.applyedJobs %}
+                    <div class="apply_btn ">
+                        <a class="btn btn-primary" href="{{ path('seeker_apply_job', { 'job': job.id }) }}">Postuler</a>
+                    </div>
+                {% else %}
+                    <div class="apply_btn ">
+                        <button class="btn btn-success" href="#" data-toggle="tooltip" data-placement="right" title="You already applyed for this job" disabled>Applyed</button>
+                    </div>
+                {% endif %}
+
+            {% elseif app.user.company %}
+                <div class="apply_btn ">
+                    <button class="btn btn-primary" href="#" data-toggle="tooltip" data-placement="right" title="Only seekers can apply for job" disabled>Postuler</button>
+                </div>
+            {% else %}
+                <div class="apply_btn ">
+                    <button class="btn btn-primary" href="#" data-toggle="tooltip" data-placement="right" title="update your profile to apply" disabled>Postuler</button>
+                </div>
+            {% endif %}
+                
+        {% else %}
+            <div class="apply_btn ">
+                <button class="btn btn-primary" href="#" data-toggle="tooltip" data-placement="right" title="connect as seeker account" disabled>Postuler</button>
+            </div>
+        {% endif %}
+        
+        <div class="jobInfo ">
+            <b>{{ job.seekersApplyed | length }}</b> candidats pour <b>{{ job.postsNumber }}</b> posts
         </div>
 
         <div class="description">

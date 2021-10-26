@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CV;
+use App\Entity\Job;
 use App\Entity\Seeker;
 use App\Entity\User;
 use App\Form\SeekerType;
@@ -12,12 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/seeker")
  */
 class SeekerController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security){
+        $this->security = $security;
+    }
+
     /**
      * @Route("/", name="seeker_index", methods={"GET"})
      */
@@ -104,5 +112,35 @@ class SeekerController extends AbstractController
         }
 
         return $this->redirectToRoute('seeker_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/apply/{job}", name="seeker_apply_job")
+     */
+    public function applyForJob(Job $job): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->security->getUser();
+
+        /** @var \App\Entity\Seeker $seeker */
+        $seeker = $user->getSeeker();
+        dump($seeker);
+
+        // /** @var \App\Entity\Job $job */
+        dump($job);
+
+        $seeker->addApplyedJob($job);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($seeker);
+        $manager->flush();
+
+        $this->addFlash(
+           'success',
+           'you successfuly applyed for job "'.$job->getTitle().'"'
+        );
+
+        return $this->redirectToRoute('job_show', [
+            'slug' => $job->getSlug()
+        ], Response::HTTP_SEE_OTHER);
     }
 }

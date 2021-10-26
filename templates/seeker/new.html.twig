@@ -3,9 +3,13 @@
 {% block title %}New Seeker{% endblock %}
 
 {% block body %}
-    <h1>Create new Seeker</h1>
 
-    {{ include('seeker/_form.html.twig') }}
+    <div class="container-fluid">
+    
+        <h3>Create new profile</h3>
 
-    {# <a href="{{ path('seeker_index') }}">back to list</a> #}
+        {{ include('seeker/_form.html.twig') }}
+
+    </div>
+    
 {% endblock %}
