@@ -9,6 +9,8 @@ use App\Entity\User;
 use App\Form\SeekerType;
 use App\Repository\CountryRepository;
 use App\Repository\SeekerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -142,5 +144,16 @@ class SeekerController extends AbstractController
         return $this->redirectToRoute('job_show', [
             'slug' => $job->getSlug()
         ], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/list/{slug}", name="seekers_show", methods={"GET"})
+     */
+    public function list(Job $job): Response
+    {
+        $seekers = $job->getSeekersApplyed();
+        return $this->render('seeker/index.html.twig', [
+            'seekers' => $seekers,
+        ]);
     }
 }

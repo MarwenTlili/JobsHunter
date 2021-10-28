@@ -20,6 +20,15 @@
                     {{ job.createdAt ? job.createdAt|date('d-m-Y') : '' }}
                 </div>
 
+                <div class="info">
+                    there is 
+                    <a href="{{ path('seekers_show', {'slug': job.slug}) }}">
+                        <b>{{ job.seekersApplyed | length }}</b>
+                    </a> 
+                    seekers applied for this job
+                    
+                </div>
+
                 <div class="address">
                     <b>Address</b>
                     {{ job.address }}
